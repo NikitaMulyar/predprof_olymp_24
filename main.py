@@ -38,6 +38,6 @@ def get_company(company_name, period, total):
 
 
 if __name__ == '__main__':
-    print('Hello!')
+    print('Hello! 123')
     print('Test Sber.')
     app.run(port=8080, host='127.0.0.1')
