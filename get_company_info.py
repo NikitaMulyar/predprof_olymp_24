@@ -24,5 +24,10 @@ def get_info(company, period, total):
     df = pd.DataFrame(tick.candles(date=fromday, till_date=today, period=moex_periods[period]))
     df = df[:total]
     df = df[['begin', 'open', 'close', 'high', 'low', 'value', 'volume', 'end']]
+    df.set_index('begin', inplace=True)
     # df.rename(columns={'volume': 'quantity'})
     df.to_csv(f'csv_files/{company}.csv')
+
+
+if __name__ == '__main__':
+    get_info('MOEX', 'D', 300)
