@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <h1>Информация про компанию {{ company }} на {{ total }} последних {{ period }}</h1>
+    <button onClick="window.location.reload();">Обновить данные</button>
+    <table border="1">
+      <thead>
+      <tr>
+          <th>Дата</th>
+          <th>Цена открытия</th>
+          <th>Цена закрытия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for day in data %}
+        <tr>
+            <td>{{ day[0] }}</td>
+            <td>{{ day[1] }}</td>
+            <td>{{ day[2] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</header>
+</body>
+</html>
