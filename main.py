@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from consts import rus_periods
-from get_company_info import get_info
+# from consts import rus_periods
+# from get_company_info import get_info
 
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index (1).html')
 
 
 @app.route('/<land_name>')
@@ -24,17 +24,17 @@ def get_company(land_name):
 def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
 
-
-@app.route('/<company_name>/<period>/<int:total>/')
-def get_company(company_name, period, total):
-    kwargs = dict()
-    kwargs['company'] = company_name
-    kwargs['total'] = total
-    kwargs['period'] = rus_periods[period]
-
-    get_info(company_name, period, total)
-
-    return render_template('company_info.html', **kwargs)
+#
+# @app.route('/<company_name>/<period>/<int:total>/')
+# def get_company(company_name, period, total):
+#     kwargs = dict()
+#     kwargs['company'] = company_name
+#     kwargs['total'] = total
+#     kwargs['period'] = rus_periods[period]
+#
+#     get_info(company_name, period, total)
+#
+#     return render_template('company_info.html', **kwargs)
 
 
 if __name__ == '__main__':

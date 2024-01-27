@@ -10,14 +10,15 @@
 </head>
 <body>
     <header>
-        <p>
-          <a href="">id {{id}}</a>
-        </p>
-        <img class="profile" src="img/profile-pic.png" alt="">
-    </header>
-    <main style="display: inline;">
         
-        <ul class="nav flex-column" style="margin-top: 85px; width: fit-content;">
+        <img class="profile" src="img/profile-pic.png" alt="">
+        <p>
+            <a href="">id {{id}}</a>
+        </p>
+    </header>
+    <main style="display: flex;">
+        
+        <ul class="nav flex-column" style="margin-top: 85px; width: fit-content; height: 100%;">
             <li class="nav-item">
               <a class="nav-link" href="#user-info">User info</a>
             </li>
@@ -28,24 +29,23 @@
               <a class="nav-link" href="#">Link</a>
             </li>
         </ul>
-        <div id="user-info">
+        <div style="margin-top: 85px; margin-left: 10%; display: block;">
+            <div id="user-info">
+                <h5>Информация о пользователе:</h5>
+                <p>id: {{id}}</p>
+                <p>name: {{name}}</p>
+                <p>email: {{email}}</p>
+                <p>something else</p>
+
+            </div>
             
-            <span>id: {{id}}</span>
-            <p>name: {{name}}</p>
-            <p>something else</p>
-
-        </div>
-        <div id="watching">
-            Отслеживаемое
-            <ul style="list-style: none;">
-                {% for i in range(n) %}
-                <li class="nav-item">
-                    <a class="nav-link" href="company/i">Компания {{i}}</a>
-                </li>
+            <div id="watching" style="margin-top: 85px;">
+                <h5>Отслеживаемое</h5>
+                {% for i in range(n) %} <br>
+                    <a class="nav-link" href="company/i" style="color: black; display: inline;">Компания {{i}}</a> <span>{{delta}}</span> <br>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
-
     </main>
 </body>
 </html>
