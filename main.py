@@ -16,17 +16,22 @@ app.config['SECRET_KEY'] = 'secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index0.html')
 
+
 @app.route('/index1')
 def index1():
-    return render_template('index (1).html')
+    return render_template('index.html')
+
+
 @app.route('/index2')
 def index2():
     return render_template('index2.html')
+
 
 @app.route('/user')
 def user():
