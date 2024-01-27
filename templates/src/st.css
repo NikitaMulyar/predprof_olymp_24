@@ -1,0 +1,59 @@
+
+header{
+    padding: 3px;
+    vertical-align: middle;
+    background-color: #2E2D65;
+    height: 12%;
+    width: 100%;
+    display:flexbox;
+    text-align: right;
+    position: fixed;
+    align-items: end;
+}
+a{
+    text-decoration: none;
+    color: #D9D9D9;
+}
+header > a{
+    margin-right: 10%;
+    text-align: right;
+}
+header > img {
+    height: 60px;
+    border-radius: 100%;
+    display: inline;
+}
+main {
+    padding: 1%;
+}
+.logo-img{
+    width: 100%;
+    margin-top: 5%;
+
+}
+.row {
+    width: 100%;
+}
+.roww{
+    display: flex;
+}
+.col {
+    width: 30%;
+}
+.col-3 {
+    width: 15%;
+}
+.bg1 {
+    width: 50%;
+    height: 30%;
+    background: #7e7e7e;
+}
+.card {
+    margin-left: 10px; 
+    margin-top: 10px;
+    width: 60%;
+}
+.col-9 {
+    margin-left: 5%;
+    width: 60%;
+}

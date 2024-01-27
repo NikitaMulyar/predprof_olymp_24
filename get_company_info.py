@@ -1,7 +1,9 @@
 from moexalgo import Ticker
 import pandas as pd
 from datetime import date, timedelta
-from consts import moex_periods
+from consts import moex_periods, yfinances_periods
+import yfinance as yf
+from pprint import pprint
 
 
 def get_info(company, period, total):
@@ -23,11 +25,30 @@ def get_info(company, period, total):
     fromday = today - timedelta(minutes=minutes) - timedelta(minutes=60 * 24 * 95)  # Вычитаем квартал
     df = pd.DataFrame(tick.candles(date=fromday, till_date=today, period=moex_periods[period]))
     df = df[:total]
-    df = df[['begin', 'open', 'close', 'high', 'low', 'value', 'volume', 'end']]
+    df = df[['begin', 'open', 'close', 'high', 'low']]
     df.set_index('begin', inplace=True)
     # df.rename(columns={'volume': 'quantity'})
     df.to_csv(f'csv_files/{company}.csv')
 
 
+def get_usa_company_info(company, period, total):
+    tick = yf.Ticker(company)
+    df = tick.history(interval=yfinances_periods[period])
+    df = df[:total]
+    df.columns = [x.lower() for x in df.columns]
+    df = df[['open', 'close', 'high', 'low']]
+    df[['open', 'close', 'high', 'low']] = df[['open', 'close', 'high', 'low']].apply(lambda x: round(x, 2))
+    print(df.loc['Date'])
+    df.to_csv(f'csv_files/{company}.csv')
+    """df = df[['begin', 'open', 'close', 'high', 'low', 'value', 'volume', 'end']]
+    df.set_index('begin', inplace=True)
+    # df.rename(columns={'volume': 'quantity'})
+    df.to_csv(f'csv_files/{company}.csv')"""
+
+
 if __name__ == '__main__':
-    get_info('MOEX', 'D', 300)
+    get_info('SBER', 'D', 500)
+    get_info('MOEX', 'D', 500)
+    get_info('YNDX', 'D', 500)
+    get_info('DSKY', 'D', 500)
+    get_info('LKOH', 'D', 500)
