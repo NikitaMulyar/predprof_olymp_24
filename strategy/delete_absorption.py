@@ -12,7 +12,7 @@ def absorption(size):
         if i != 0:
             A[i - 1] = str(*line).split(',')  # распаковка
             for j in range(len(A[i - 1])):
-                if j != 0 and j != 7:  # перевод во float цен
+                if j != 0: # перевод во float цен
                     A[i - 1][j] = float(A[i - 1][j])
         i += 1
         if (i > size):
@@ -59,11 +59,12 @@ def absorption(size):
                     budget += A[i][1] * d
         print(A[i])
         print(A[i][3])
-        print("SELL")
-        print(*SELL, sep='\n')
-        print("BUY_FOR_PROJECT")
-        print(*BUY_FOR_PROJECT, sep='\n')
-        print(*SELL, sep='\n')
+        # print("SELL")
+        # print(*SELL, sep='\n')
+        print("BUY")
+        print(*BUY, sep='\n')
+        # print("BUY_FOR_PROJECT")
+        # print(*BUY_FOR_PROJECT, sep='\n')
         print()
     file.close()
     print("доход:", up) #вывод дохода
@@ -71,4 +72,4 @@ def absorption(size):
 
 
 if __name__ == '__main__':
-    absorption(200)
+    absorption(100)
