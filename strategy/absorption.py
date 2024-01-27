@@ -67,8 +67,12 @@ def absorption(size):
         # print(*BUY_FOR_PROJECT, sep='\n')
         print()
     file.close()
-    print("доход:", up) #вывод дохода
-    print("бюджет:", budget) #вывод бюджета
+    up1 = up
+    for it in BUY:
+        up1 += it[0] * it[2]
+    print("доход:", up)  # вывод дохода
+    print("теоритеческий доход:", up1)  # вывод дохода
+    print("бюджет:", budget)  # вывод бюджета
 
 
 if __name__ == '__main__':
