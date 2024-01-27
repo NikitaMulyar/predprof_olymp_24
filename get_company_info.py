@@ -31,7 +31,7 @@ def get_info(company, period, total):
 
 def get_usa_company_info(company, period, total):
     tick = yf.Ticker(company)
-    df = tick.history(interval=yfinances_periods[period])
+    df = tick.history(interval=yfinances_periods[period], period="max")
     df = df[:total]
     df.columns = [x.lower() for x in df.columns]
     df = df[['open', 'close', 'high', 'low']]
