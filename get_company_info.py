@@ -38,7 +38,9 @@ def get_usa_company_info(company, period, total):
     df.columns = [x.lower() for x in df.columns]
     df = df[['open', 'close', 'high', 'low']]
     df[['open', 'close', 'high', 'low']] = df[['open', 'close', 'high', 'low']].apply(lambda x: round(x, 2))
-    print(df.loc['Date'])
+    df['begin'] = df.index.values
+    df['begin'] = df['begin'].apply(lambda t: t.date())
+    df.set_index('begin', inplace=True)
     df.to_csv(f'csv_files/{company}.csv')
     """df = df[['begin', 'open', 'close', 'high', 'low', 'value', 'volume', 'end']]
     df.set_index('begin', inplace=True)
@@ -47,8 +49,11 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    get_info('SBER', 'D', 500)
+    """get_info('SBER', 'D', 500)
     get_info('MOEX', 'D', 500)
     get_info('YNDX', 'D', 500)
     get_info('DSKY', 'D', 500)
-    get_info('LKOH', 'D', 500)
+    get_info('LKOH', 'D', 500)"""
+    get_usa_company_info("META", 'D', 500)
+    get_usa_company_info("AAPL", 'D', 500)
+
