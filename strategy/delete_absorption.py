@@ -18,6 +18,7 @@ def absorption(size):
         if (i > size):
             break
     BUY = []  # все цены, которые попадают в этот массив, отмечаются зеленой галочкой на графике
+    BUY_FOR_PROJECT = [] #
     SELL = []  # все цены, которые попадают в этот массив, отмечаются красным ротиком на графике
     up = 0
     budget = 0
@@ -26,7 +27,7 @@ def absorption(size):
             j[3] = ((A[i - 1][3] + A[i - 1][4]) / 2) / j[0] * 100 - 100
             if j[3] >= 5 or j[3] <= -5:
                 SELL.append([A[i][1], A[i][0], j[2]])  # если прибыль/убыль больше 5%, продаем
-                print(1)
+                # print(1)
         min_a = min(A[i - 2][1], A[i - 2][2])
         max_a = max(A[i - 2][1], A[i - 2][2])
         min_b = min(A[i - 1][1], A[i - 1][2])
@@ -35,9 +36,9 @@ def absorption(size):
         if (min_b < min_a) and (max_b > max_a):  # проверка на то, что вчера произошло поглощение
             absort = True
         if absort:
-            if (A[i - 2][2] < A[i - 2][1]) and (
-                    A[i - 1][2] > A[i - 1][1]):  # черная свеча поглощена белой. Следовательно, сегодня покупаем
-                d = random.randint(1, 10)
+            if (A[i - 2][2] < A[i - 2][1]) and (A[i - 1][2] > A[i - 1][1]):  # черная свеча поглощена белой. Следовательно, сегодня покупаем
+                d = int(1 + (max_b - min_b) / (max_a - min_a))
+                BUY_FOR_PROJECT.append([A[i][1], A[i][0], 1, 0])
                 BUY.append([A[i][1], A[i][0], d, 0])  # цена покупки, дата покупки, объем, процент прибыли/убыли
                 up -= A[i][1] * d
                 budget += A[i][1] * d
@@ -50,6 +51,10 @@ def absorption(size):
                         BUY.remove(j)
                 if value_to_sell != 0:
                     SELL.append([A[i][1], A[i][0], value_to_sell])  # цена продажи, дата продажи, объем
+                if (i > 5) and (A[i - 5][2] > (A[i - 1][1] + A[i - 1][2]) / 2) and (abs(A[i - 1][1] - A[i - 1][2]) * 4 < A[i - 1][4] - A[i - 1][3]):
+                    BUY.append(A[i][1], A[i][0], 1, 0) # молот
+                    up -= A[i][1]
+                    budget += A[i][1]
         print(A[i])
         print(A[i][3])
         print("BUY")
