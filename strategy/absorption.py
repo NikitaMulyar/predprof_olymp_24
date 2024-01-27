@@ -14,6 +14,7 @@ def absorption():
                 if j!=0 and j!=7: #перевод во float цен
                     A[i][j] = float(A[i][j])
         i+=1
+    BUY = []
     print(A)
     BUY = []
     SELL = []
@@ -27,6 +28,10 @@ def absorption():
         absort = False
         if (min_b<min_a) and (max_b>max_a):
             absort = True
+        if A[i][3] < A[i][4]:
+            color = "white"
+        else:
+            color = "black"
         if absort:
             if (A[i-1][4] < A[i-1][3]) and (A[i][4] > A[i][3]):
                 pass
