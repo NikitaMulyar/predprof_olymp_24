@@ -3,7 +3,6 @@ import pandas as pd
 from datetime import date, timedelta
 from consts import moex_periods, yfinances_periods
 import yfinance as yf
-from pprint import pprint
 
 
 def get_info(company, period, total):
@@ -27,7 +26,6 @@ def get_info(company, period, total):
     df = df[:total]
     df = df[['begin', 'open', 'close', 'high', 'low']]
     df.set_index('begin', inplace=True)
-    # df.rename(columns={'volume': 'quantity'})
     df.to_csv(f'csv_files/{company}.csv')
 
 
@@ -42,10 +40,6 @@ def get_usa_company_info(company, period, total):
     df['begin'] = df['begin'].apply(lambda t: t.date())
     df.set_index('begin', inplace=True)
     df.to_csv(f'csv_files/{company}.csv')
-    """df = df[['begin', 'open', 'close', 'high', 'low', 'value', 'volume', 'end']]
-    df.set_index('begin', inplace=True)
-    # df.rename(columns={'volume': 'quantity'})
-    df.to_csv(f'csv_files/{company}.csv')"""
 
 
 if __name__ == '__main__':
