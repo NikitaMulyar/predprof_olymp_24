@@ -34,10 +34,11 @@ def get_info(company, period, total):
 def get_usa_company_info(company, period, total):
     # Here We are getting Facebook financial information
     # We need to pass FB as argument for that
-    GetFacebookInformation = yf.Ticker("META")
+    tick = yf.Ticker("AAPL")
 
     # whole python dictionary is printed here
-    pprint(GetFacebookInformation.history(period="1d"))
+    df = tick.history(period="1d", interval="1m")
+    print(df.to_string())
 
 
 if __name__ == '__main__':
