@@ -16,12 +16,17 @@ class LoginForm(FlaskForm):
     user_password = PasswordField('Пароль', validators=[DataRequired()])
     submit = SubmitField('Войти')
 
-
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index (1).html')
+    return render_template('index0.html')
 
+@app.route('/index1')
+def index1():
+    return render_template('index (1).html')
+@app.route('/index2')
+def index2():
+    return render_template('index2.html')
 
 @app.route('/user')
 def user():
