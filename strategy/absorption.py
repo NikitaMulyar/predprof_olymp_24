@@ -95,7 +95,7 @@ def forecast(sze, cmp):
     up = 0
     budget = 0
     for i in range(2, len(A)):
-        a = check_buy(A, BUY_FOR_PROJECT, BUY, SELL, i, up, budget)
+        a = check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up, budget)
         up = a[0]
         budget = a[1]
         purch = a[2]
@@ -103,8 +103,8 @@ def forecast(sze, cmp):
         print(purch, soll)
         print(A[i])
         print(A[i][3])
-        # print("SELL")
-        # print(*SELL, sep='\n')
+        print("SELL")
+        print(*SELL, sep='\n')
         print("BUY")
         print(*BUY, sep='\n')
         # print("BUY_FOR_PROJECT")
@@ -120,4 +120,6 @@ def forecast(sze, cmp):
 
 
 if __name__ == '__main__':
-    print(absorption(500, "AAPL"))
+    cmp = "UPRO"
+    forecast(100, cmp)
+    print(absorption(100, cmp))
