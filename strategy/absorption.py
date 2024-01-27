@@ -15,6 +15,8 @@ def absorption():
                     A[i][j] = float(A[i][j])
         i+=1
     print(A)
+    BUY = []
+    SELL = []
     for i in range(2, len(A)):
         print(A[i-1])
         min_a = min(A[i-1][3], A[i-1][4])
@@ -27,6 +29,9 @@ def absorption():
             absort = True
         if absort:
             if (A[i-1][4] < A[i-1][3]) and (A[i][4] > A[i][3]):
-
-                return "" #найдено поглощение
+                pass
     file.close()
+
+
+if __name__ == '__main__':
+    absorption()
