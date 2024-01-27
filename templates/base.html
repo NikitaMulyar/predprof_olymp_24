@@ -12,22 +12,20 @@
 </head>
 <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3" style="background-color: #2E2D65; position: fixed; color: #D9D9D9; width: 100%; z-index: 10;">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Eggplantrade</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="\index">Eggplantrade</a></h5>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2" href="#">Компании</a>
-            <a class="p-2" href="#">Поддержка</a>
-            <a class="p-2" href="#">Подписка</a>
+            <a class="p-2" href="\index#companies">Компании</a>
+            <a class="p-2" href="\sub">Подписка</a>
         </nav>
-        {%if not use%}
-        <a class="btn btn-outline-primary" style="color: alice blue; border-color: alice-blue" href="/user">Войти</a>
+        {%if not user%}
+        <a class="btn btn-outline-primary" style="color: alice blue; border-color: alice-blue" href="/login">Войти</a>
         {%else%}
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="static\img\profile-pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="/user">Profile</a></li>
             <li><a class="dropdown-item" href="#">Sign out</a></li>
           </ul>
         </div>
