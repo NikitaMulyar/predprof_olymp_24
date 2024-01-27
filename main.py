@@ -42,7 +42,9 @@ def login():
 #
 #     return render_template('land_stocks.html', **kwargs)
 #
-
+@app.route('/reg')
+def reg():
+    return render_template('reg.html')
 @app.errorhandler(500)
 def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
