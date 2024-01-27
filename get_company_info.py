@@ -2,6 +2,8 @@ from moexalgo import Ticker
 import pandas as pd
 from datetime import date, timedelta
 from consts import moex_periods
+import yfinance as yf
+from pprint import pprint
 
 
 def get_info(company, period, total):
@@ -29,5 +31,15 @@ def get_info(company, period, total):
     df.to_csv(f'csv_files/{company}.csv')
 
 
+def get_usa_company_info(company, period, total):
+    # Here We are getting Facebook financial information
+    # We need to pass FB as argument for that
+    GetFacebookInformation = yf.Ticker("META")
+
+    # whole python dictionary is printed here
+    pprint(GetFacebookInformation.history(period="1d"))
+
+
 if __name__ == '__main__':
-    get_info('MOEX', 'D', 300)
+    get_usa_company_info('AAPL', 1, 1)
+    # get_info('MOEX', 'D', 300)
