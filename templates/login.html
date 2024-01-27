@@ -1,31 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="padding-top: 10%">
-<div class="w-25 mx-auto">
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.user_id.label }}<br>
-        {{ form.user_id(class="form-control") }}<br>
-        {% for error in form.user_id.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-    </p>
-    <p>
-        {{ form.user_password.label }}<br>
-        {{ form.user_password(class="form-control", type="password") }}<br>
-        {% for error in form.user_password.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-    </p>
+<main role="main" style="width: 25%; margin: auto; padding-top: 10%;">
+    <h1>Авторизация</h1>
 
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-</form>
-</div>
-</div>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control", type="email") }}<br>
+            {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control", type="password") }}<br>
+            {% for error in form.password.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+    </form>
+</main>
 {% endblock %}
