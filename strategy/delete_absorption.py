@@ -3,17 +3,20 @@ import os
 
 
 def absorption():
-    file = open("../csv_files/YNDX.csv", encoding="utf8")
+    file = open("../csv_files/MOEX.csv", encoding="utf8")
     reader = csv.reader(file, delimiter=";", quotechar='"')
-    A = [[] for i in range(100)]
+    A = [[] for i in range(102)]
     i = 0
     for line in reader:
+        print(line)
         if i != 0:
-            A[i - 1] = str(*line).split(',')[1:]  # распаковка и удаление номера вершины
+            A[i - 1] = str(*line).split(',')  # распаковка
             for j in range(len(A[i - 1])):
                 if j != 0 and j != 7:  # перевод во float цен
                     A[i - 1][j] = float(A[i - 1][j])
         i += 1
+        if (i > 102):
+            break
     BUY = []  # все цены, которые попадают в этот массив, отмечаются зеленой галочкой на графике
     SELL = []  # все цены, которые попадают в этот массив, отмечаются красным ротиком на графике
     up = 0
@@ -44,7 +47,7 @@ def absorption():
                         BUY.remove(j)
                 if value_to_sell != 0:
                     SELL.append([A[i][3], A[i][0], value_to_sell])  # цена продажи, дата продажи, объем
-
+        print(A[i])
         print(A[i][3])
         print("BUY")
         print(*BUY, sep='\n')

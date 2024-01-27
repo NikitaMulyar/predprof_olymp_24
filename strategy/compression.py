@@ -9,9 +9,8 @@ def compress_csv():
 
     for line in reader:
         # print(str(*line))
-        number, time_begin, open, close, high, low, value, volume, time_end = str(*line).split(',')
-        if number:
-            print(number, time_begin, open, close, high, low, value, volume, time_end, sep='\n')
+        time_begin, open, close, high, low, value, volume, time_end = str(*line).split(',')
+        print(time_begin, open, close, high, low, value, volume, time_end, sep='\n')
     file.close()
 
 

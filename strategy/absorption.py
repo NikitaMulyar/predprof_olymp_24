@@ -2,14 +2,14 @@ import csv
 import os
 
 def absorption():
-    file = open("../csv_files/YNDX.csv", encoding="utf8")
+    file = open("../csv_files/SBER.csv", encoding="utf8")
     reader = csv.reader(file, delimiter=";", quotechar='"')
     print(reader)
     A = [[] for i in range(101)]
     i = 0
     for line in reader:
         if i != 0:
-            A[i] = str(*line).split(',')[1:] # распаковка и удаление номера вершины
+            A[i] = str(*line).split(',') # распаковка
             for j in range(len(A[i])):
                 if j!=0 and j!=7: #перевод во float цен
                     A[i][j] = float(A[i][j])
