@@ -11,14 +11,18 @@ app = Flask(__name__)
 def index():
     return render_template('index (1).html')
 
+@app.route('/user')
+def user():
+    return render_template('user.html')
 
-@app.route('/<land_name>')
-def get_company(land_name):
-    kwargs = dict()
-    kwargs['land_name'] = land_name
 
-    return render_template('land_stocks.html', **kwargs)
-
+# @app.route('/<land_name>')
+# def get_company(land_name):
+#     kwargs = dict()
+#     kwargs['land_name'] = land_name
+#
+#     return render_template('land_stocks.html', **kwargs)
+#
 
 @app.errorhandler(500)
 def internal_error(error):

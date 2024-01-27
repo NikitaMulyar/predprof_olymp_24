@@ -6,12 +6,12 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="st.css">
+    <link rel="stylesheet" href="static/css/st.css">
 </head>
 <body>
     <header>
         
-        <img class="profile" src="img/profile-pic.png" alt="">
+        <img class="profile" src="static/img/profile-pic.png" alt="">
         <p>
             <a href="">id {{id}}</a>
         </p>
@@ -32,17 +32,17 @@
         <div style="margin-top: 85px; margin-left: 10%; display: block;">
             <div id="user-info">
                 <h5>Информация о пользователе:</h5>
-                <p>id: {{id}}</p>
-                <p>name: {{name}}</p>
-                <p>email: {{email}}</p>
+                <p>id: {{ id }}</p>
+                <p>name: {{ name }}</p>
+                <p>email: {{ email }}</p>
                 <p>something else</p>
 
             </div>
             
             <div id="watching" style="margin-top: 85px;">
                 <h5>Отслеживаемое</h5>
-                {% for i in range(n) %} <br>
-                    <a class="nav-link" href="company/i" style="color: black; display: inline;">Компания {{i}}</a> <span>{{delta}}</span> <br>
+                {% for i in range(4) %} <br>
+                    <a class="nav-link" href="company/{{ i }}" style="color: black; display: inline;">Компания {{ i }}</a> <span>{{ delta }}</span> <br>
                 {% endfor %}
             </div>
         </div>
