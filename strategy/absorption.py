@@ -121,5 +121,5 @@ def forecast(sze, cmp):
 
 if __name__ == '__main__':
     cmp = "UPRO"
-    forecast(100, cmp)
-    print(absorption(100, cmp))
+    forecast(1000, cmp)
+    print(absorption(1000, cmp))
