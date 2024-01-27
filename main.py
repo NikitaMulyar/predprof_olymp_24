@@ -1,10 +1,19 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired
+
 # from consts import rus_periods
 # from get_company_info import get_info
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret_key'
 
+class LoginForm(FlaskForm):
+    user_id = StringField('login', validators=[DataRequired()])
+    user_password = PasswordField('Пароль', validators=[DataRequired()])
+    submit = SubmitField('Войти')
 
 @app.route('/')
 @app.route('/index')
@@ -14,8 +23,18 @@ def index():
 @app.route('/user')
 def user():
     return render_template('user.html')
-
-
+@app.route('/sub')
+def sub():
+    return render_template('sub.html')
+# @app.route('/login')
+# def log():
+#     return render_template('login.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect('/user')
+    return render_template('login.html', title='Авторизация', form=form)
 # @app.route('/<land_name>')
 # def get_company(land_name):
 #     kwargs = dict()

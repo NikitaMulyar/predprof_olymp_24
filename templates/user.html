@@ -1,35 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="static/css/st.css">
-</head>
-<body>
-    <header>
-        
-        <img class="profile" src="static/img/profile-pic.png" alt="">
-        <p>
-            <a href="">id {{id}}</a>
-        </p>
-    </header>
+{% extends "base.html" %}
+
+
+  {% block content%}
     <main style="display: flex;">
         
-        <ul class="nav flex-column" style="margin-top: 85px; width: fit-content; height: 100%;">
+        <ul class="nav flex-column" style="margin-top: 100px; width: fit-content; height: 100%; position: fixed">
             <li class="nav-item">
-              <a class="nav-link" href="#user-info">User info</a>
+              <a class="nav-link" href="#user-info">Инфорамция о пользователе</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#watching">Избранное</a>
+              <a class="nav-link" href="#watching">Отслеживаемое</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
             </li>
         </ul>
-        <div style="margin-top: 85px; margin-left: 10%; display: block;">
+        <div style="margin-top: 100px; margin-left: 22%; display: block;">
             <div id="user-info">
                 <h5>Информация о пользователе:</h5>
                 <p>id: {{ id }}</p>
@@ -41,11 +27,28 @@
             
             <div id="watching" style="margin-top: 85px;">
                 <h5>Отслеживаемое</h5>
-                {% for i in range(4) %} <br>
-                    <a class="nav-link" href="company/{{ i }}" style="color: black; display: inline;">Компания {{ i }}</a> <span>{{ delta }}</span> <br>
-                {% endfor %}
+                <div class="container" style="padding-top: 10px" id="companies">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                      {%for i in range(5)%}
+                      <div class="col">
+                        <div class="card shadow-sm">
+                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" role="img" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+                          <div class="card-body">
+                            <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как естественный ввод к дополнительному контенту. Этот контент немного длиннее.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Подробнее</button>
+                              </div>
+                              <small class="text-muted"> {{delta}}</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {%endfor%}
+                    </div>
+                   </div>
             </div>
         </div>
     </main>
-</body>
-</html>
+{%endblock%}
