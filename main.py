@@ -28,9 +28,11 @@ def index1():
     return render_template('index.html')
 
 
-@app.route('/index2')
-def index2():
-    return render_template('index2.html')
+@app.route('/companies/<region>')
+def all_companies(region):
+    if region == "RU":
+        return render_template('index2.html')
+    return render_template('index.html')
 
 
 @app.route('/user')
@@ -103,4 +105,4 @@ def company_page():
 
 if __name__ == '__main__':
     db_session.global_init("db/database.db")
-    app.run(port=8080, host='127.0.0.1')
+    app.run(port=5000, host='127.0.0.1')
