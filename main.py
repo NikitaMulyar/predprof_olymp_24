@@ -10,22 +10,29 @@ from wtforms.validators import DataRequired
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 
+
 class LoginForm(FlaskForm):
     user_id = StringField('login', validators=[DataRequired()])
     user_password = PasswordField('Пароль', validators=[DataRequired()])
     submit = SubmitField('Войти')
+
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index (1).html')
 
+
 @app.route('/user')
 def user():
     return render_template('user.html')
+
+
 @app.route('/sub')
 def sub():
     return render_template('sub.html')
+
+
 # @app.route('/login')
 # def log():
 #     return render_template('login.html')
@@ -35,6 +42,8 @@ def login():
     if form.validate_on_submit():
         return redirect('/user')
     return render_template('login.html', title='Авторизация', form=form)
+
+
 # @app.route('/<land_name>')
 # def get_company(land_name):
 #     kwargs = dict()
@@ -49,8 +58,9 @@ def reg():
 def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
 
+
 #
-# @app.route('/<company_name>/<period>/<int:total>/')
+# @script.route('/<company_name>/<period>/<int:total>/')
 # def get_company(company_name, period, total):
 #     kwargs = dict()
 #     kwargs['company'] = company_name
@@ -60,6 +70,10 @@ def internal_error(error):
 #     get_info(company_name, period, total)
 #
 #     return render_template('company_info.html', **kwargs)
+
+@app.route('/company_page')
+def company_page():
+    return render_template('company_table.html')
 
 
 if __name__ == '__main__':
