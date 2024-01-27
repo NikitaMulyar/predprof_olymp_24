@@ -43,11 +43,12 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    get_info('SBER', 'D', 500)
+    """get_info('SBER', 'D', 500)
     get_info('MOEX', 'D', 500)
     get_info('YNDX', 'D', 500)
     get_info('DSKY', 'D', 500)
     get_info('LKOH', 'D', 500)
     get_usa_company_info("META", 'D', 500)
-    get_usa_company_info("AAPL", 'D', 500)
-
+    get_usa_company_info("AAPL", 'D', 500)"""
+    # get_usa_company_info("SBUX", 'D', 100)
+    get_info("UPRO", 'D', 10000)
