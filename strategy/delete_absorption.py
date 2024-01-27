@@ -37,6 +37,7 @@ def absorption():
                         BUY.remove(j)
                 SELL.append(A[i][3], A[i][0], value_to_sell) # цена продажи, дата продажи, объем
     file.close()
+    print(sell)
 
 if __name__ == '__main__':
     absorption()
