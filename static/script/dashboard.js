@@ -6,8 +6,10 @@
 for(var i = 0; i < edata.length; i++) {
   if(edata[i].bought)
     edata[i].description = `Bought ${edata[i].count}`;
+//    edata[i].normal = '#d1ead9'
   else
     edata[i].description = `Bought ${edata[i].count}`;
+//     edata[i].normal = '#ead9d1'
 }
 
 (() => {
@@ -33,7 +35,7 @@ for(var i = 0; i < edata.length; i++) {
         series.fallingStroke("#FF0D0D");
         series.risingFill("#32bf60");
         series.risingStroke("#32bf60");
-        chart.title(`${company_name} Stock Chart`);
+        chart.title(`${company_name}`);
         chart.container('myChart');
         chart.draw();
         var eventMarkers = plot.eventMarkers();

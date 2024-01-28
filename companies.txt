@@ -1,0 +1,13 @@
+Газпром:GAZP
+Лукойл:LKOH
+Яндекс:YAND
+Московская биржа:MOEX
+Сбер:SBER
+Whoosh:WUSH
+Аэрофлот:AFLT
+Apple:AAPL
+Tesla:TSLA
+Boeing Co:BA
+Starbucks Corporation:SBUX
+Nike Inc:NKE
+Microsoft Corporation:MSFT

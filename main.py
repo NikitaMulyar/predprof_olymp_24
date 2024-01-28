@@ -20,19 +20,14 @@ login_manager.init_app(app)
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index0.html')
+    return render_template('index0.html', title="Главная страница")
 
 
-@app.route('/index1')
-def index1():
-    return render_template('index.html')
-
-
-@app.route('/companies/<region>')
+@app.route('/companies.txt/<region>')
 def all_companies(region):
     if region == "RU":
-        return render_template('index2.html')
-    return render_template('index.html')
+        return render_template('index2.html', title="Российская биржа")
+    return render_template('index.html', title="Американская биржа")
 
 
 @app.route('/user')
@@ -98,11 +93,24 @@ def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
 
 
-@app.route('/company_page')
-def company_page():
-    return render_template('company_table.html')
+@app.route('/company_page/<short_comp>')
+def company_page(short_comp):
+    kwargs = dict()
+    kwargs["data"] = [[0, '2023-03-07', 3],
+                      [1, '2023-03-05', 2]
+                      ]
+    file = open("companies.txt", "rt", encoding="utf8")
+    comp = file.readlines()
+    file.close()
+    for el in comp:
+        if el.split(":")[1].strip() == short_comp:
+            kwargs["short"] = short_comp
+            kwargs["long"] = el.split(":")[0]
+            break
+    kwargs["title"] = kwargs["long"]
+    return render_template('company_table.html', **kwargs)
 
 
 if __name__ == '__main__':
     db_session.global_init("db/database.db")
-    app.run(port=5000, host='127.0.0.1')
+    app.run(port=8080, host='127.0.0.1')
