@@ -4,6 +4,8 @@ import random
 
 
 def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
+    cf = 1
+    
     purch = False
     soll = False
     for j in BUY:  # для каждой купленной акции определяем, какой процент прибыли/убыли она несет к текущему дню
@@ -22,6 +24,7 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
         if (A[i - 2][2] < A[i - 2][1]) and (
                 A[i - 1][2] > A[i - 1][1]):  # черная свеча поглощена белой. Следовательно, сегодня покупаем
             d = int(1 + (max_b - min_b) / (max_a - min_a))
+            d *= cf
             BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
             BUY.append([A[i][1], A[i][0], d, 0])  # цена покупки, дата покупки, объем, процент прибыли/убыли
             up -= A[i][1] * d
@@ -40,6 +43,7 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
             if (i > 5) and (A[i - 5][2] > (A[i - 1][1] + A[i - 1][2]) / 2) and (
                     abs(A[i - 1][1] - A[i - 1][2]) * 4 < A[i - 1][4] - A[i - 1][3]):
                 d = (A[i - 1][4] - A[i - 1][3]) / (abs(A[i - 1][1] - A[i - 1][2]))
+                d *= cf
                 BUY.append([A[i][1], A[i][0], d, 0])  # молот
                 BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
                 purch = True
@@ -48,7 +52,7 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
     return [up, budget, purch, soll]
 
 
-def absorption(sze, cmp):
+def absorption(cmp):
     st = "../csv_files/" + cmp + ".csv"
     file = open(st, encoding="utf8", mode='r')
     file1 = open(st, encoding="utf8", mode='r')
@@ -58,7 +62,7 @@ def absorption(sze, cmp):
     next(reader)
     A = []
     for i, line in enumerate(reader):
-        if i >= l - sze - 1:
+        if i >= l - 10:
             A.append(line)  # распаковка
             for j in range(len(A[-1])):
                 if j != 0:  # перевод во float цен
@@ -100,26 +104,28 @@ def forecast(sze, cmp):
         budget = a[1]
         purch = a[2]
         soll = a[3]
-        print(purch, soll)
-        print(A[i])
-        print(A[i][3])
-        print("SELL")
-        print(*SELL, sep='\n')
-        print("BUY")
-        print(*BUY, sep='\n')
-        # print("BUY_FOR_PROJECT")
-        # print(*BUY_FOR_PROJECT, sep='\n')
-        print()
+        # print(purch, soll)
+        # print(A[i])
+        # print(A[i][3])
+        # print("SELL")
+        # print(*SELL, sep='\n')
+        # print("BUY")
+        # print(*BUY, sep='\n')
+        # print()
     up1 = up
     for it in BUY:
         up1 += it[0] * it[2]
+    print("BUY_FOR_PROJECT")
+    print(*BUY_FOR_PROJECT, sep='\n')
     print("доход:", up)  # вывод дохода
-    print("теоритеческий доход:", up1)  # вывод дохода
+    print("теоритический доход:", up1)  # вывод дохода
+    print("доход в процентах: ", round(100 * (up1/budget), 3), "%", sep='')
     print("бюджет:", budget)  # вывод бюджета
     file.close()
 
 
 if __name__ == '__main__':
-    cmp = "UPRO"
+    cmp = "VKCO"
+    print("компания:", cmp)
     forecast(1000, cmp)
-    print(absorption(1000, cmp))
+    print(absorption(cmp))
