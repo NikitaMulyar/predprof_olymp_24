@@ -43,7 +43,9 @@ def user():
 @app.route('/sub')
 def sub():
     return render_template('sub.html')
-
+@app.route('/crypto')
+def crypto():
+    return render_template('crypto.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
