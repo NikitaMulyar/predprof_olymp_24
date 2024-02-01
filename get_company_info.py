@@ -20,6 +20,9 @@ def get_info(company, period, total):
     elif period == 'Q':
         minutes = total * 60 * 24 * 92
     tick = Ticker(company)
+    """import pprint
+    pprint.pprint(tick.())
+    return"""
     today = date.today()
     fromday = today - timedelta(minutes=minutes) - timedelta(minutes=60 * 24 * 95 * 10)  # Вычитаем квартал
     df = pd.DataFrame(tick.candles(date=fromday, till_date=today, period=moex_periods[period]))
@@ -31,6 +34,9 @@ def get_info(company, period, total):
 
 def get_usa_company_info(company, period, total):
     tick = yf.Ticker(company)
+    import pprint
+    pprint.pprint(tick.get_info()['longBusinessSummary'])
+    return
     df = tick.history(interval=yfinances_periods[period], period="max")
     df = df.tail(total)
     df.columns = [x.lower() for x in df.columns]
@@ -43,12 +49,14 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    """get_info('SBER', 'D', 500)
-    get_info('MOEX', 'D', 500)
-    get_info('YNDX', 'D', 500)
-    get_info('DSKY', 'D', 500)
+    get_info('KUBE', 'D', 400)
+    """get_info('KUBE', 'D', 500)
     get_info('LKOH', 'D', 500)
-    get_usa_company_info("META", 'D', 500)
+    get_info('MOEX', 'D', 500)
+    get_info('SBER', 'D', 500)
+    get_info('WUSH', 'D', 500)
+    get_info('AFLT', 'D', 500)"""
+    """get_usa_company_info("META", 'D', 500)
     get_usa_company_info("AAPL", 'D', 500)"""
-    # get_usa_company_info("SBUX", 'D', 100)
-    get_info("UPRO", 'D', 10000)
+    # get_usa_company_info("NKE", 'D', 10)
+    # get_info("UPRO", 'D', 10000)
