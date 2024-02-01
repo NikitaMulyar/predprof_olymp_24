@@ -26,7 +26,7 @@ def get_info(company, period, total):
     today = date.today()
     fromday = today - timedelta(minutes=minutes) - timedelta(minutes=60 * 24 * 95 * 10)  # Вычитаем квартал
     df = pd.DataFrame(tick.candles(date=fromday, till_date=today, period=moex_periods[period]))
-    df = df[:total]
+    df = df[len(df) - total:]
     df = df[['begin', 'open', 'close', 'high', 'low']]
     df.set_index('begin', inplace=True)
     df.to_csv(f'csv_files/{company}.csv')
@@ -34,9 +34,9 @@ def get_info(company, period, total):
 
 def get_usa_company_info(company, period, total):
     tick = yf.Ticker(company)
-    import pprint
+    """import pprint
     pprint.pprint(tick.get_info()['longBusinessSummary'])
-    return
+    return"""
     df = tick.history(interval=yfinances_periods[period], period="max")
     df = df.tail(total)
     df.columns = [x.lower() for x in df.columns]
@@ -49,14 +49,17 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    get_info('KUBE', 'D', 400)
-    """get_info('KUBE', 'D', 500)
+    get_info('KUBE', 'D', 500)
     get_info('LKOH', 'D', 500)
     get_info('MOEX', 'D', 500)
     get_info('SBER', 'D', 500)
     get_info('WUSH', 'D', 500)
-    get_info('AFLT', 'D', 500)"""
-    """get_usa_company_info("META", 'D', 500)
-    get_usa_company_info("AAPL", 'D', 500)"""
-    # get_usa_company_info("NKE", 'D', 10)
-    # get_info("UPRO", 'D', 10000)
+    get_info('AFLT', 'D', 500)
+    get_info('YNDX', 'D', 500)
+    get_usa_company_info("META", 'D', 500)
+    get_usa_company_info("AAPL", 'D', 500)
+    get_usa_company_info("TSLA", 'D', 500)
+    get_usa_company_info("NKE", 'D', 500)
+    get_usa_company_info("AIR.F", 'D', 500)
+    get_usa_company_info("BA", 'D', 500)
+    get_usa_company_info("SBUX", 'D', 500)
