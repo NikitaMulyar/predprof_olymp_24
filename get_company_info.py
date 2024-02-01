@@ -1,3 +1,4 @@
+import moexalgo
 from moexalgo import Ticker
 import pandas as pd
 from datetime import date, timedelta
@@ -21,7 +22,7 @@ def get_info(company, period, total):
         minutes = total * 60 * 24 * 92
     tick = Ticker(company)
     """import pprint
-    pprint.pprint(tick.())
+    pprint.pprint(tick.info())
     return"""
     today = date.today()
     fromday = today - timedelta(minutes=minutes) - timedelta(minutes=60 * 24 * 95 * 10)  # Вычитаем квартал
@@ -49,13 +50,13 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    get_info('KUBE', 'D', 500)
+    """get_info('KUBE', 'D', 500)
     get_info('LKOH', 'D', 500)
     get_info('MOEX', 'D', 500)
     get_info('SBER', 'D', 500)
-    get_info('WUSH', 'D', 500)
+    get_info('TCSG', 'D', 500)
     get_info('AFLT', 'D', 500)
-    get_info('YNDX', 'D', 500)
+    get_info('YNDX', 'D', 500)"""
     get_usa_company_info("META", 'D', 500)
     get_usa_company_info("AAPL", 'D', 500)
     get_usa_company_info("TSLA", 'D', 500)
