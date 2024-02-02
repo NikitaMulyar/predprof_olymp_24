@@ -50,7 +50,7 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    get_rus_company_info('NVTK', 'D', 500)
+    """get_rus_company_info('NVTK', 'D', 500)
     get_rus_company_info('RTKM', 'D', 500)
     get_rus_company_info('VTBR', 'D', 500)
     get_rus_company_info('YNDX', 'D', 500)
@@ -66,10 +66,10 @@ if __name__ == '__main__':
     get_usa_company_info("META", 'D', 500)
     get_usa_company_info("SBUX", 'D', 500)
     get_usa_company_info("NKE", 'D', 500)
-    get_usa_company_info("AIR.F", 'D', 500)
-    get_usa_company_info("TSLA", 'D', 500)
+    get_usa_company_info("AIR.F", 'D', 500)"""
+    get_usa_company_info("AIR.PA", 'D', 500)
 
-    get_usa_company_info("BTC-USD", 'D', 500)
+    """get_usa_company_info("BTC-USD.txt", 'D', 500)
     get_usa_company_info("ETH-USD", 'D', 500)
-    get_usa_company_info("DOGE-USD", 'D', 500)
-    get_usa_company_info("TON11419-USD", 'D', 500)
+    get_usa_company_info("DOGE-USD.txt", 'D', 500)
+    get_usa_company_info("TON11419-USD", 'D', 500)"""
