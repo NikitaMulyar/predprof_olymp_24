@@ -106,5 +106,6 @@ def company_page(name, period, total):
 
 
 if __name__ == '__main__':
+    print('кукареку')
     db_session.global_init("db/database.db")
     app.run(port=5000, host='127.0.0.1')

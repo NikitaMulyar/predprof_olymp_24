@@ -12,6 +12,7 @@ def global_init(db_file):
     global __factory
 
     if __factory:
+        print(999)
         return
 
     if not db_file or not db_file.strip():
@@ -29,4 +30,5 @@ def global_init(db_file):
 
 def create_session() -> Session:
     global __factory
+    print(9)
     return __factory()
