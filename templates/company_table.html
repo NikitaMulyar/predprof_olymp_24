@@ -30,36 +30,43 @@
       <img src="static/img/svg/<company>.svg">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2" style="color: #e5e8eb">{{company}}</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-<!--            <svg class="bi"><use xlink:href="#calendar3"/></svg>-->
-            This week
-          </button>
+          <div class="dropdown text-end" style="color: white;">
+            <div class="d-block link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px; border: solid #616161; border-radius: 10px; width: fit-content">
+              <a href="#" class="text-decoration-none" >
+                <span style="color: #616161;"> period</span>
+              </a>
+            </div>
+
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="/company_page/<company>/D/100">Day</a></li>
+            <li><a class="dropdown-item" href="/company_page/<company>/W/100">Week</a></li>
+          </ul>
         </div>
+
       </div>
 
       <div class="my-4 w-100" id="myChart" width="900" height="10000"></div>
 
       <h2 style="color: #e5e8eb">Данные по графику</h2>
       <div class="table-responsive small" style="padding: 15px">
-        <table class="table table-striped table-sm">
-          <thead>
+        <table class="table table-striped table-sm" >
+          <thead >
             <tr>
-              <th scope="col">Дата</th>
-              <th scope="col">Открытие</th>
-              <th scope="col">Закрытие</th>
-              <th scope="col">Максимум</th>
-              <th scope="col">Минимум</th>
+              <th scope="col" style="background: #001739;color: white">Дата</th>
+              <th scope="col" style="background: #001739;color: white">Открытие</th>
+              <th scope="col" style="background: #001739;color: white">Закрытие</th>
+              <th scope="col" style="background: #001739;color: white">Максимум</th>
+              <th scope="col" style="background: #001739;color: white">Минимум</th>
             </tr>
           </thead>
           <tbody>
           {%for i in range(16)%}
             <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
+              <td style="background: #001739;color: white">1,001</td>
+              <td style="background: #001739;color: white">random</td>
+              <td style="background: #001739;color: white">data</td>
+              <td style="background: #001739;color: white">placeholder</td>
+              <td style="background: #001739;color: white">text</td>
             </tr>
           {%endfor%}
           </tbody>
