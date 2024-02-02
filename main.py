@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from consts import rus_periods
-from get_company_info import get_info
+from get_company_info import get_rus_company_info
 
 
 app = Flask(__name__)
@@ -32,7 +32,7 @@ def get_company(company_name, period, total):
     kwargs['total'] = total
     kwargs['period'] = rus_periods[period]
 
-    get_info(company_name, period, total)
+    get_rus_company_info(company_name, period, total)
 
     return render_template('company_info.html', **kwargs)
 

@@ -6,7 +6,7 @@ from consts import moex_periods, yfinances_periods
 import yfinance as yf
 
 
-def get_info(company, period, total):
+def get_rus_company_info(company, period, total):
     minutes = 0
     if period == 'MIN':
         minutes = total
@@ -50,18 +50,26 @@ def get_usa_company_info(company, period, total):
 
 
 if __name__ == '__main__':
-    """get_info('KUBE', 'D', 500)
-    get_info('LKOH', 'D', 500)
-    get_info('MOEX', 'D', 500)
-    get_info('SBER', 'D', 500)
-    get_info('TCSG', 'D', 500)
-    get_info('AFLT', 'D', 500)
-    get_info('YNDX', 'D', 500)"""
-    """get_usa_company_info("META", 'D', 500)
-    get_usa_company_info("AAPL.txt", 'D', 500)
-    get_usa_company_info("TSLA", 'D', 500)
+    get_rus_company_info('NVTK', 'D', 500)
+    get_rus_company_info('RTKM', 'D', 500)
+    get_rus_company_info('VTBR', 'D', 500)
+    get_rus_company_info('YNDX', 'D', 500)
+    get_rus_company_info('GAZP', 'D', 500)
+    get_rus_company_info('AFLT', 'D', 500)
+    get_rus_company_info('TCSG', 'D', 500)
+    get_rus_company_info("SBER", 'D', 500)
+    get_rus_company_info("LKOH", 'D', 500)
+    get_rus_company_info("MOEX", 'D', 500)
+
+    get_usa_company_info("BA", 'D', 500)
+    get_usa_company_info("AAPL", 'D', 500)
+    get_usa_company_info("META", 'D', 500)
+    get_usa_company_info("SBUX", 'D', 500)
     get_usa_company_info("NKE", 'D', 500)
     get_usa_company_info("AIR.F", 'D', 500)
-    get_usa_company_info("BA", 'D', 500)
-    get_usa_company_info("SBUX", 'D', 500)"""
-    get_usa_company_info('DOGE-USD', 'D', 500)
+    get_usa_company_info("TSLA", 'D', 500)
+
+    get_usa_company_info("BTC-USD", 'D', 500)
+    get_usa_company_info("ETH-USD", 'D', 500)
+    get_usa_company_info("DOGE-USD", 'D', 500)
+    get_usa_company_info("TON11419-USD", 'D', 500)
