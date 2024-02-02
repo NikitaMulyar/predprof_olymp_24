@@ -100,9 +100,9 @@ def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
 
 
-@app.route('/company_page')
-def company_page():
-    return render_template('company_table.html')
+@app.route('/company_page/<name>/<period>/<int:total>')
+def company_page(name, period, total):
+    return render_template('company_table.html', company=name)
 
 
 if __name__ == '__main__':
