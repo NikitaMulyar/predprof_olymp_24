@@ -102,7 +102,7 @@ def internal_error(error):
 
 @app.route('/company_page/<name>/<period>/<int:total>')
 def company_page(name, period, total):
-    return render_template('company_table.html', company=name)
+    return render_template('company_table.html')
 
 
 if __name__ == '__main__':
