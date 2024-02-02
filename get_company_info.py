@@ -57,10 +57,11 @@ if __name__ == '__main__':
     get_info('TCSG', 'D', 500)
     get_info('AFLT', 'D', 500)
     get_info('YNDX', 'D', 500)"""
-    get_usa_company_info("META", 'D', 500)
-    get_usa_company_info("AAPL", 'D', 500)
+    """get_usa_company_info("META", 'D', 500)
+    get_usa_company_info("AAPL.txt", 'D', 500)
     get_usa_company_info("TSLA", 'D', 500)
     get_usa_company_info("NKE", 'D', 500)
     get_usa_company_info("AIR.F", 'D', 500)
     get_usa_company_info("BA", 'D', 500)
-    get_usa_company_info("SBUX", 'D', 500)
+    get_usa_company_info("SBUX", 'D', 500)"""
+    get_usa_company_info('DOGE-USD', 'D', 500)
