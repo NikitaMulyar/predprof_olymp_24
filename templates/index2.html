@@ -1,122 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>на скорую руку</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="src\st.css">
-</head>
+{% extends "base.html" %}
 
-<body>
-    <header>
-      <p>
-        <a href="user.html">log in/sign in</a> <br>
-        <a href="">subscribe to get full version</a>
-      </p>
-      <img class="profile" src="img/profile-pic.png" alt="">
-    </header>
-    <img src="img/main.png" alt="" class="logo-img">
+
+  {% block content%}
+<!--    <a href="/index"><img src="static/img/logo.png" alt="" class="logo-img img-fluid" ></a>-->
     <main>
-      
-      <div class="row">
-        <div class="col-3">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Last trades</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="user.html" role="tab" aria-selected="true">Profile</a>
-          </div>
-        </div>
-        
-        <div class="col-9">
-          <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" style="display: block;">
-              <div class="roww">
-                <div class="card">
-                  <div class="bg1"></div>
-                  <div class="card-body">
-                    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                      </div>
-                      <small class="text-muted">{{delta}}</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="bg1"></div>
-                  <div class="card-body">
-                    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                      </div>
-                      <small class="text-muted">{{delta}}</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="bg1"></div>
-                  <div class="card-body">
-                    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                      </div>
-                      <small class="text-muted">{{delta}}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="roww">
-                <div class="card">
-                  <div class="bg1"></div>
-                  <div class="card-body">
-                    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                      </div>
-                      <small class="text-muted">{{delta}}</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="bg1"></div>
-                  <div class="card-body">
-                    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                      </div>
-                      <small class="text-muted">{{delta}}</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="bg1"></div>
-                  <div class="card-body">
-                    <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже как </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
-                      </div>
-                      <small class="text-muted">{{delta}}</small>
-                    </div>
+
+      <div class="container" id="companies" style="padding-top: 100pt">
+          <h2 class="display-5" style="color: white; text-align: center; padding-bottom: 10pt"> Российские компании</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {%for i in range(10)%}
+          <div class="col">
+            <div class="card shadow-sm" style="padding-top: 5px">
+<!--              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" role="img" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
+                  <img src="<massiv[i][0]>">
+              <div class="card-body" style=" background: #0f3163; color:#f0f8ff; margin-top: 5px">
+                <p class="card-text">{{massiv[i][3]}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary"  onClick="location.href='/company_page/<massiv[i][2]>/D/100'">Подробнее</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">feuwigqfpucbtvyuq8i</div>
+          </div>
+          {%endfor%}
         </div>
-      </div>
-          
-      
+       </div>
     </main>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-</body>
-</html>
+ {%endblock%}

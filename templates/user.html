@@ -1,51 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="st.css">
-</head>
-<body>
-    <header>
-        <p>
-          <a href="">id {{id}}</a>
-        </p>
-        <img class="profile" src="img/profile-pic.png" alt="">
-    </header>
-    <main style="display: inline;">
+{% extends "base.html" %}
+
+
+  {% block content%}
+    <main style="display: flex; color:#e5e8eb">
         
-        <ul class="nav flex-column" style="margin-top: 85px; width: fit-content;">
+        <ul class="nav flex-column" style="margin-top: 100px; width: fit-content; height: 100%; position: fixed">
             <li class="nav-item">
-              <a class="nav-link" href="#user-info">User info</a>
+              <a class="nav-link" href="#user-info">Инфорамция о пользователе</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#watching">Избранное</a>
+              <a class="nav-link" href="#watching">Отслеживаемое</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
             </li>
         </ul>
-        <div id="user-info">
+        <div style="margin-top: 100px; margin-left: 22%; display: block;">
+            <div id="user-info">
+                <h5>Информация о пользователе:</h5>
+                <p>id: {{ id }}</p>
+                <p>name: {{ name }}</p>
+                <p>email: {{ email }}</p>
+                <p>something else</p>
+
+            </div>
             
-            <span>id: {{id}}</span>
-            <p>name: {{name}}</p>
-            <p>something else</p>
+            <div id="watching" style="margin-top: 85px;">
+                <h5>Отслеживаемое</h5>
+                <div class="container" style="padding-top: 10px; color: black" id="companies">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<!--                      {%for i in range(4)%}-->
+                      <div class="col">
+                        <div class="card shadow-sm">
+                          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" role="img" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
+                          <div class="card-body">
+                            <p class="card-text">Акции компании APPL</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <button type="button" class="btn btn-sm btn-outline-secondary" onClick="location.href='/company_info'">Подробнее</button>
+                              <small class="text-muted"> {{delta}}</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+<!--                      {%endfor%}-->
+                    </div>
+                   </div>
+            </div>
         </div>
-        <div id="watching">
-            Отслеживаемое
-            <ul style="list-style: none;">
-                {% for i in range(n) %}
-                <li class="nav-item">
-                    <a class="nav-link" href="company/i">Компания {{i}}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
     </main>
-</body>
-</html>
+{%endblock%}
