@@ -23,18 +23,27 @@
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
-
+{%  set ind = -1 %}
+{%  for el in massiv %}
+{%  if el[2] == company %}
+{%  set ind = loop.index0 %}
+{%  break %}
+{%  endif %}
+{%  endfor %}
 <div class="container-fluid" style="padding-top: 100pt">
   <div class="row">
     <main>
-      <img src="/static/img/svg/YNDX.svg" style="height: 70px; background: white;">
+      <img src="/static/img/svg/<company>.svg" style="height: 70px; background: white;">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2" style="color: #e5e8eb; padding-top: 15pt">Yandex</h1>
-        <span style="color:white; width: 200pt">kth;siofui'poei ihqaciukdhi[qh ioqhfrocih[c9uje;ids oiwhfoesh[iuhcpifurhfseruhf iqh8euwyhgc;pahih ciqh uigfruq</span>
-          <div class="dropdown text-end" style="color: white;">
+        <div>
+           <h1 class="h2" style="color: #e5e8eb; padding-top: 15pt">{{company}}</h1>
+          <span style="color:white; width: 200pt">{{massiv[ind][3]}}</span>
+
+        </div>
+                 <div class="dropdown text-end" style="color: white;">
             <div class="d-block link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px; border: solid #616161; border-radius: 10px; width: fit-content">
               <a href="#" class="text-decoration-none" >
-                <span style="color: #616161;"> period</span>
+                <span style="color: #616161;">period</span>
               </a>
             </div>
 
