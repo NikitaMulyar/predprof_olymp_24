@@ -9,7 +9,9 @@
 
 {% block content %}
     <script>
-      const edata = {{ graph_data }};
+      const buy_data =  JSON.parse('{{ buy_data | tojson }}');
+      const sell_data = JSON.parse('{{ sell_data | tojson }}');
+      const edata =  JSON.parse('{{ edata | tojson }}');
       const dataset_url = 'http://127.0.0.1:5000/api/{{ company }}';
       const company_name = '{{ full_company_name }}';
     </script>
@@ -56,13 +58,13 @@
             </tr>
           </thead>
           <tbody>
-          {%for i in range(16)%}
+          {% for el in table_data %}
             <tr>
-              <td style="background: #001739;color: white">1,001</td>
-              <td style="background: #001739;color: white">random</td>
-              <td style="background: #001739;color: white">data</td>
-              <td style="background: #001739;color: white">placeholder</td>
-              <td style="background: #001739;color: white">text</td>
+              <td style="background: #001739;color: white">{{ el[0] }}</td>
+              <td style="background: #001739;color: white">{{ el[1] }}</td>
+              <td style="background: #001739;color: white">{{ el[2] }}</td>
+              <td style="background: #001739;color: white">{{ el[3] }}</td>
+              <td style="background: #001739;color: white">{{ el[4] }}</td>
             </tr>
           {%endfor%}
           </tbody>
