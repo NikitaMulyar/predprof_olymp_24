@@ -2,7 +2,6 @@ import csv
 import os
 import random
 
-
 def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
     cf = 1
     for j in BUY:  # для каждой купленной акции определяем, какой процент прибыли/убыли она несет к утру сегодняшнего дня
@@ -49,7 +48,7 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
 
 
 def forecast(sze, cmp):
-    st = "csv_files/" + cmp + ".csv"
+    st = "../csv_files/" + cmp + ".csv"
     file = open(st, encoding="utf8", mode='r')
     file1 = open(st, encoding="utf8", mode='r')
     l = len(file1.readlines())
@@ -75,23 +74,19 @@ def forecast(sze, cmp):
     up1 = up
     for it in BUY:
         up1 += it[0] * it[2]
-
-    with open(f'strategy_results/{cmp}.csv', 'w', newline='', encoding="utf8") as csvfile:
-        writer = csv.writer(
-            csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(['date', 'bought', 'count', 'price'])
-        for el in BUY_FOR_PROJECT:
-            writer.writerow([el[1], True, el[2], el[0]])
-        for el in SELL:
-            writer.writerow([el[1], False, el[2], el[0]])
-    csvfile.close()
+    # print("BUY_FOR_PROJECT")
+    # print(*SELL, sep='\n')
+    # print('!', sep ='\n ')
+    # print(*BUY_FOR_PROJECT, sep='\n')
+    print("доход:", up)  # вывод дохода
+    print("теоритический доход:", up1)  # вывод дохода
+    print("доход в процентах: ", round(100 * (up1/budget), 3), "%", sep='')
+    print("бюджет:", budget)  # вывод бюджета
     file.close()
-
-    return {'доход': up, 'теоритический доход': up1, 'доход в процентах': round(100 * (up1/budget), 3),
-            'бюджет': budget}
 
 
 if __name__ == '__main__':
-    cmp = "YNDX"
+    cmp = "AAPL"
     print("компания:", cmp)
-    print(forecast(480, cmp))
+    forecast(100, cmp)
+    # print(*absorption(cmp))

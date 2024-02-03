@@ -1,3 +1,6 @@
+import csv
+import datetime
+
 from flask import Flask, render_template, redirect, abort
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
@@ -10,6 +13,7 @@ from form.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 import get_company_info
+from strategy.absorption import forecast
 
 
 app = Flask(__name__)
@@ -118,13 +122,40 @@ def company_page(name, period, total):
     db_sess = db_session.create_session()
     comp = db_sess.query(Company).filter(Company.short_name == name).first()
     if comp:
+        forecast(total, name)
+
+        buy_data = []
+        sell_data = []
+        edata = []
+        with open(f'strategy_results/{name}.csv', encoding="utf8") as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            t = next(reader)
+            for index, row in enumerate(reader):
+                d = {"date": row[0], "price": float(row[-1]), "count": int(row[-2]), "bought": row[1] == 'True'}
+                if row[1] == 'True':
+                    buy_data.append([row[0], float(row[-1]), int(row[-2])])
+                else:
+                    sell_data.append([row[0], float(row[-1]), int(row[-2])])
+                edata.append(d)
+        csvfile.close()
+
         if comp.land.name == 'RUS':
             get_company_info.get_rus_company_info(comp.short_name, period, total)
         else:
             get_company_info.get_usa_company_info(comp.short_name, period, total)
+
+        table_data = []
+        with open(f'csv_files/{name}.csv', encoding="utf8") as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            t = next(reader)
+            for index, row in enumerate(reader):
+                table_data.append(row)
+        csvfile.close()
+
         return render_template('company_table.html', pic_url=comp.pic_url,
                                company=comp.short_name, description=comp.description,
-                               full_company_name=comp.full_name)
+                               full_company_name=comp.full_name, buy_data=buy_data, table_data=table_data,
+                               sell_data=sell_data, edata=edata)
     return abort(404)
 
 
