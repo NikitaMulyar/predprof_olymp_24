@@ -17,27 +17,20 @@
         { "bought":false, date: '84', "count": 7},
         { "bought":true, date: '91', "count": 2}
       ];
-      const dataset_url = 'https://raw.githubusercontent.com/NikitaMulyar/predprof_olymp_24/backend/csv_files/YNDX.csv';
-      const company_name = 'AAPL';
+      const dataset_url = 'http://127.0.0.1:5000/api/{{ company }}';
+      const company_name = '{{ full_company_name }}';
     </script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
-{%  set ind = -1 %}
-{%  for el in massiv %}
-{%  if el[2] == company %}
-{%  set ind = loop.index0 %}
-{%  break %}
-{%  endif %}
-{%  endfor %}
 <div class="container-fluid" style="padding-top: 100pt">
   <div class="row">
     <main>
-      <img src="/static/img/svg/<company>.svg" style="height: 70px; background: white;">
+      <img src="{{ pic_url }}" style="height: 150px; background: snow;">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div>
-           <h1 class="h2" style="color: #e5e8eb; padding-top: 15pt">{{company}}</h1>
-          <span style="color:white; width: 200pt">{{massiv[ind][3]}}</span>
+           <h1 class="h2" style="color: #e5e8eb; padding-top: 15pt">{{ full_company_name }} ({{ company }})</h1>
+          <span style="color:white; width: 200pt">{{ description }}</span>
 
         </div>
                  <div class="dropdown text-end" style="color: white;">
@@ -48,8 +41,8 @@
             </div>
 
           <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="/company_page/<company>/D/100">Day</a></li>
-            <li><a class="dropdown-item" href="/company_page/<company>/W/100">Week</a></li>
+            <li><a class="dropdown-item" href="/company_page/{{ company }}/D/100">Day</a></li>
+            <li><a class="dropdown-item" href="/company_page/{{ company }}/W/100">Week</a></li>
           </ul>
         </div>
 

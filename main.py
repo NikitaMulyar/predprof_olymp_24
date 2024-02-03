@@ -1,14 +1,15 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, abort
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
-from data import db_session
+from data import db_session, csv_api
 from data.users import User
+from data.companies import Company
+from data.lands import Land
 from form.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
-# from consts import rus_periods
-# from get_company_info import get_info
+import get_company_info
 
 
 app = Flask(__name__)
@@ -18,21 +19,34 @@ login_manager.init_app(app)
 
 
 @app.route('/')
-@app.route('/index')
 def index():
-    return render_template('index0.html')
-
-
-@app.route('/index1')
-def index1():
-    return render_template('index.html')
+    db_sess = db_session.create_session()
+    data = []
+    for el in db_sess.query(Company).all():
+        data.append([el.short_name, el.full_name, el.land_id])
+    data = sorted(data, key=lambda a: a[-1])
+    return render_template('index0.html', massiv=data)
 
 
 @app.route('/companies/<region>')
 def all_companies(region):
-    if region == "RU":
-        return render_template('index2.html')
-    return render_template('index.html')
+    db_sess = db_session.create_session()
+    land = db_sess.query(Land).filter(Land.name == region).first()
+    if not land:
+        return abort(404)
+    data0 = db_sess.query(Company).filter(Company.land_id == land.id).all()
+    if not data0:
+        return abort(500)
+    data = []
+    for el in data0:
+        data.append([el.short_name, el.full_name, el.pic_url, el.description[:200] + '...'])
+    if region == 'RUS':
+        title = 'Российские компании'
+    elif region == 'USA':
+        title = 'Американские компании'
+    else:
+        title = 'Криптовалюты'
+    return render_template('region_companies.html', massiv=data, title=title)
 
 
 @app.route('/user')
@@ -43,9 +57,7 @@ def user():
 @app.route('/sub')
 def sub():
     return render_template('sub.html')
-@app.route('/crypto')
-def crypto():
-    return render_template('crypto.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -96,16 +108,27 @@ def logout():
 
 
 @app.errorhandler(500)
+@app.errorhandler(404)
 def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
 
 
 @app.route('/company_page/<name>/<period>/<int:total>')
 def company_page(name, period, total):
-    return render_template('company_table.html')
+    db_sess = db_session.create_session()
+    comp = db_sess.query(Company).filter(Company.short_name == name).first()
+    if comp:
+        if comp.land.name == 'RUS':
+            get_company_info.get_rus_company_info(comp.short_name, period, total)
+        else:
+            get_company_info.get_usa_company_info(comp.short_name, period, total)
+        return render_template('company_table.html', pic_url=comp.pic_url,
+                               company=comp.short_name, description=comp.description,
+                               full_company_name=comp.full_name)
+    return abort(404)
 
 
 if __name__ == '__main__':
-    print('кукареку')
     db_session.global_init("db/database.db")
+    app.register_blueprint(csv_api.blueprint)
     app.run(port=5000, host='127.0.0.1')

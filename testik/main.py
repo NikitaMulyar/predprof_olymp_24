@@ -25,7 +25,7 @@ def get_info(company, period, total):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('usa.html')
 
 
 @app.errorhandler(500)
