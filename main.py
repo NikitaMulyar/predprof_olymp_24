@@ -1,7 +1,7 @@
 import csv
 import datetime
 
-from flask import Flask, render_template, redirect, abort
+from flask import Flask, render_template, redirect, abort, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
@@ -117,8 +117,16 @@ def internal_error(error):
     return "<h1>Ты ошибся!</h2>", 500
 
 
-@app.route('/company_page/<name>/<period>/<int:total>')
+@app.route('/company_page/<name>/<period>/<int:total>', methods=['GET', 'POST'])
 def company_page(name, period, total):
+    if request.method == 'POST':
+        period = period
+        total = total
+        if request.form['period'] != 'Выберете период':
+            period = request.form['period'][0]
+        if request.form['total'] != '':
+            total = int(request.form['total'])
+        return redirect(f'/company_page/{name}/{period}/{total}')
     db_sess = db_session.create_session()
     comp = db_sess.query(Company).filter(Company.short_name == name).first()
     if comp:
