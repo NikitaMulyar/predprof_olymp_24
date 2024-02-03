@@ -87,8 +87,8 @@ def forecast(sze, cmp):
     csvfile.close()
     file.close()
 
-    return {'доход': up, 'теоритический доход': up1, 'доход в процентах': round(100 * (up1/budget), 3),
-            'бюджет': budget}
+    return {'up': round(up, 3), 'up1': round(up1, 3), 'percent_up': round(100 * (up1/budget), 3),
+            'budget': round(budget, 3)}
 
 
 if __name__ == '__main__':

@@ -27,18 +27,14 @@ def index():
     db_sess = db_session.create_session()
     data = []
     for el in db_sess.query(Company).all():
-        data.append([el.short_name, el.full_name, el.land_id])
-    data = sorted(data, key=lambda a: a[-1])
+        data.append([el.short_name, el.full_name, el.land.name])
     return render_template('index0.html', massiv=data)
 
 
 @app.route('/companies/<region>')
 def all_companies(region):
     db_sess = db_session.create_session()
-    land = db_sess.query(Land).filter(Land.name == region).first()
-    if not land:
-        return abort(404)
-    data0 = db_sess.query(Company).filter(Company.land_id == land.id).all()
+    data0 = db_sess.query(Company).join(Land).filter(Land.name == region).all()
     if not data0:
         return abort(500)
     data = []
@@ -47,7 +43,7 @@ def all_companies(region):
     if region == 'RUS':
         title = 'Российские компании'
     elif region == 'USA':
-        title = 'Американские компании'
+        title = 'Иностранные компании'
     else:
         title = 'Криптовалюты'
     return render_template('region_companies.html', massiv=data, title=title)
@@ -130,23 +126,6 @@ def company_page(name, period, total):
     db_sess = db_session.create_session()
     comp = db_sess.query(Company).filter(Company.short_name == name).first()
     if comp:
-        forecast(total, name)
-
-        buy_data = []
-        sell_data = []
-        edata = []
-        with open(f'strategy_results/{name}.csv', encoding="utf8") as csvfile:
-            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-            t = next(reader)
-            for index, row in enumerate(reader):
-                d = {"date": row[0], "price": float(row[-1]), "count": int(row[-2]), "bought": row[1] == 'True'}
-                if row[1] == 'True':
-                    buy_data.append([row[0], float(row[-1]), int(row[-2])])
-                else:
-                    sell_data.append([row[0], float(row[-1]), int(row[-2])])
-                edata.append(d)
-        csvfile.close()
-
         if comp.land.name == 'RUS':
             get_company_info.get_rus_company_info(comp.short_name, period, total)
         else:
@@ -160,10 +139,27 @@ def company_page(name, period, total):
                 table_data.append(row)
         csvfile.close()
 
+        res = forecast(total, name)
+        buy_data = []
+        sell_data = []
+        edata = []
+        with open(f'strategy_results/{name}.csv', encoding="utf8") as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            t = next(reader)
+            for index, row in enumerate(reader):
+                d = {"date": row[0], "price": float(row[-1]), "count": int(row[-2]),
+                     "bought": row[1] == 'True'}
+                if row[1] == 'True':
+                    buy_data.append([row[0], float(row[-1]), int(row[-2])])
+                else:
+                    sell_data.append([row[0], float(row[-1]), int(row[-2])])
+                edata.append(d)
+        csvfile.close()
+
         return render_template('company_table.html', pic_url=comp.pic_url,
                                company=comp.short_name, description=comp.description,
                                full_company_name=comp.full_name, buy_data=buy_data, table_data=table_data,
-                               sell_data=sell_data, edata=edata)
+                               sell_data=sell_data, edata=edata, res=res)
     return abort(404)
 
 

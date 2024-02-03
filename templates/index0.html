@@ -5,7 +5,26 @@
 <img src="/static/img/logo.png" width="100%">
 <main>
 
-
+<div id="site0" style="color: snow; margin: auto">
+    <h1 style="text-align: center;">Добро пожаловать на сайт Eggplantrade!</h1>
+    <h3 style="padding-left: 20%;">Здесь вы можете:</h3>
+    <div class="row" style="padding-left: 20%; padding-right: 20%">
+      <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Акции</a>
+          <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Отслеживание акций</a>
+          <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Подписка</a>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">В бесплатной версии сайта предложено 10 российских, 10 американских компаний и 3 криптовалюты.</div>
+          <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Можно добавить акцию себе в избранное, а также просматривать избранные акции других пользователей!</div>
+          <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Подписка дает возможность спрогнозировать данные торгов на будущее!</div>
+        </div>
+      </div>
+    </div>
+</div>
     <div class="d-md-flex flex-md-equal w-100 my-md-2 pl-md-2" >
       <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="margin: auto; border-radius: 15px">
         <div class="my-3 py-3">
@@ -13,9 +32,11 @@
         </div>
         <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: fit-content; border-radius: 21px 21px 21px 21px; vertical-align: middle">
             <ul class="list-unstyled" style="color: black; padding: 20px">
-                {%for i in range(10)%}
-                <li><a href="/company_page/{{ massiv[i][0] }}/D/1000" style="color: black">{{massiv[i][1]}}</a></li>
-                {%endfor%}
+                {% for el in massiv %}
+                    {% if el[2] == "RUS" %}
+                    <li><a href="/company_page/{{ el[0] }}/D/1000" style="color: black">{{ el[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </div>
       </div>
@@ -25,9 +46,11 @@
         </div>
         <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: fit-content; border-radius: 21px 21px 21px 21px; vertical-align: middle">
             <ul class="list-unstyled" style="color: black; padding: 20px">
-                {%for i in range(7)%}
-                <li><a href="/company_page/{{ massiv[i + 10][0] }}/D/1000" style="color: black">{{massiv[i + 10][1]}}</a></li>
-                {%endfor%}
+                {% for el in massiv %}
+                    {% if el[2] == "USA" %}
+                    <li><a href="/company_page/{{ el[0] }}/D/1000" style="color: black">{{ el[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </div>
       </div>
@@ -40,9 +63,11 @@
         </div>
         <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: fit-content; border-radius: 21px 21px 21px 21px; vertical-align: middle">
             <ul class="list-unstyled" style="color: black; padding: 20px">
-                {%for i in range(3)%}
-                <li><a href="/company_page/{{ massiv[i + 17][0] }}/D/1000" style="color: black">{{massiv[i + 17][1]}}</a></li>
-                {%endfor%}
+                {% for el in massiv %}
+                    {% if el[2] == "CRYPTO" %}
+                    <li><a href="/company_page/{{ el[0] }}/D/1000" style="color: black">{{ el[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </div>
     </div>
