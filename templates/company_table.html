@@ -40,10 +40,23 @@
               </a>
             </div>
 
-          <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="/company_page/{{ company }}/D/100">Day</a></li>
-            <li><a class="dropdown-item" href="/company_page/{{ company }}/W/100">Week</a></li>
-          </ul>
+          <div class="dropdown-menu text-small">
+            <form action="/companyy_page/{{company}}">
+                <input type="text" name="period" maxlength="1">
+                <input type="number" name="total">
+                <input type="submit">
+            </form>
+<!--            <li>-->
+<!--              <button type="submit">Day</button>-->
+<!--              <a class="dropdown-item" href="/company_page/{{ company }}/D/100">Day</a>-->
+<!--              <input name="сколько" value="100" maxlength="4">-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <button type="submit">Week</button>-->
+<!--              <a class="dropdown-item" href="/company_page/{{ company }}/W/100">Week</a>-->
+<!--              <input name="сколько" value="100" maxlength="4">-->
+<!--            </li>-->
+          </div>
         </div>
 
       </div>
