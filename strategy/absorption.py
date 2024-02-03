@@ -9,7 +9,7 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
     for j in BUY:  # для каждой купленной акции определяем, какой процент прибыли/убыли она несет к утру сегодняшнего дня
         j[3] = A[i][1] / j[0] * 100 - 100
     for j in BUY:
-        if j[3] > 5 or j[3] < -5:
+        if j[3] > 7 or j[3] < -5:
             SELL.append([A[i][1], j[1], j[2]])
             up += A[i][1] * j[2]
             soll += j[2]
@@ -19,18 +19,19 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
     min_b = min(A[i - 1][1], A[i - 1][2])
     max_b = max(A[i - 1][1], A[i - 1][2])
     absort = False
-    if (min_b < min_a) and (max_b > max_a):  # проверка на то, что вчера произошло поглощение
+    if (min_b < min_a) and (max_b > max_a): # проверка на то, что вчера произошло поглощение
         absort = True
     if absort:
-        if (A[i - 2][2] < A[i - 2][1]) and (A[i - 1][2] > A[i - 1][1]):  # черная свеча поглощена белой, то есть покупаем
-            d = int(1 + (max_b - min_b) / (max_a - min_a))
+        if (A[i - 5][3] + A[i - 5][4]) / 2 > (A[i - 1][3] + A[i - 1][4]) / 2:  # тренд нисходящий
+            if(max_a - min_a == 0): d = 5
+            else: d = int(1 + (max_b - min_b) / (max_a - min_a))
             d *= cf
             BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
             BUY.append([A[i][1], A[i][0], d, 0])  # цена покупки, дата покупки, объем, процент прибыли/убыли
             up -= A[i][1] * d
             budget += A[i][1] * d
             purch += d
-        elif (A[i - 2][1] < A[i - 2][2]) and (A[i - 1][1] > A[i - 1][2]):  # белая свеча поглощена черной
+        elif (A[i - 5][3] + A[i - 5][4]) / 2 < (A[i - 1][3] + A[i - 1][4]) / 2:  # тренд восходящий
             value_to_sell = 0
             for j in BUY:
                 if j[3] > 0:
@@ -40,8 +41,9 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
                     BUY.remove(j)
             if value_to_sell != 0:
                 SELL.append([A[i][1], A[i][0], value_to_sell])  # цена продажи, дата продажи, объем
-    elif (i > 5) and (A[i - 1][1] != A[i - 1][2]) and (abs(A[i - 1][1] - A[i - 1][2]) * 10 < min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) and (A[i - 5][2] > (A[i - 1][1] + A[i - 1][2]) / 2):
-        d = round((min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) / (abs(A[i - 1][1] - A[i - 1][2])))
+    elif (i > 5) and (abs(A[i - 1][1] - A[i - 1][2]) * 10 < min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) and (A[i - 5][2] > (A[i - 1][1] + A[i - 1][2]) / 2):
+        if abs(A[i - 1][1] - A[i - 1][2]) == 0: d = 5
+        else: d = round((min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) / (abs(A[i - 1][1] - A[i - 1][2])))
         d *= cf
         BUY.append([A[i][1], A[i][0], d, 0])  # молот
         BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
@@ -119,7 +121,7 @@ def forecast(sze, cmp):
 
 
 if __name__ == '__main__':
-    cmp = "VKCO"
+    cmp = "AAPL"
     print("компания:", cmp)
-    forecast(480, cmp)
-    print(*absorption(cmp))
+    forecast(100, cmp)
+    # print(*absorption(cmp))
