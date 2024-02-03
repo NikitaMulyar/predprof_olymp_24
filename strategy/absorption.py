@@ -8,7 +8,7 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
         j[3] = A[i][1] / j[0] * 100 - 100
     for j in BUY:
         if j[3] > 7 or j[3] < -5:
-            SELL.append([A[i][1], j[1], j[2]])
+            SELL.append([A[i][1], A[i][0], j[2]])
             up += A[i][1] * j[2]
             BUY.remove(j)
     min_a = min(A[i - 2][1], A[i - 2][2])
