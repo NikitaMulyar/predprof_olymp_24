@@ -1,3 +1,6 @@
+import csv
+import datetime
+
 from flask import Flask, render_template, redirect, abort
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
@@ -10,6 +13,7 @@ from form.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 import get_company_info
+from strategy.absorption import forecast, absorption
 
 
 app = Flask(__name__)
@@ -118,13 +122,25 @@ def company_page(name, period, total):
     db_sess = db_session.create_session()
     comp = db_sess.query(Company).filter(Company.short_name == name).first()
     if comp:
+        forecast(total - 5, name)
+        strategy = absorption(name)
+
+        data_ = []
+        with open(f'strategy_results/{name}.csv', encoding="utf8") as csvfile:
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            t = next(reader)
+            for index, row in enumerate(reader):
+                d = {t[1]: True if row[1] == 'True' else False, "date": row[0], t[2]: int(row[2])}
+                data_.append(d)
+
         if comp.land.name == 'RUS':
             get_company_info.get_rus_company_info(comp.short_name, period, total)
         else:
             get_company_info.get_usa_company_info(comp.short_name, period, total)
+        print(data_)
         return render_template('company_table.html', pic_url=comp.pic_url,
                                company=comp.short_name, description=comp.description,
-                               full_company_name=comp.full_name)
+                               full_company_name=comp.full_name, graph_data=data_)
     return abort(404)
 
 

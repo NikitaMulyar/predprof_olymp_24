@@ -9,14 +9,7 @@
 
 {% block content %}
     <script>
-      const edata = [
-        { "bought":true, date: '2023-03-03', "count": 3},
-        { "bought":false, date: '2023-03-03', "count": 2},
-        { "bought":true, date: '31', "count": 1},
-        { "bought":false, date: '67', "count": 10},
-        { "bought":false, date: '84', "count": 7},
-        { "bought":true, date: '91', "count": 2}
-      ];
+      const edata = {{ graph_data }};
       const dataset_url = 'http://127.0.0.1:5000/api/{{ company }}';
       const company_name = '{{ full_company_name }}';
     </script>
