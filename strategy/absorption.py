@@ -2,17 +2,14 @@ import csv
 import os
 import random
 
-def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
+def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
     cf = 1
-    purch = 0
-    soll = 0
     for j in BUY:  # для каждой купленной акции определяем, какой процент прибыли/убыли она несет к утру сегодняшнего дня
         j[3] = A[i][1] / j[0] * 100 - 100
     for j in BUY:
         if j[3] > 7 or j[3] < -5:
             SELL.append([A[i][1], j[1], j[2]])
             up += A[i][1] * j[2]
-            soll += j[2]
             BUY.remove(j)
     min_a = min(A[i - 2][1], A[i - 2][2])
     max_a = max(A[i - 2][1], A[i - 2][2])
@@ -23,21 +20,19 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
         absort = True
     if absort:
         if (A[i - 5][3] + A[i - 5][4]) / 2 > (A[i - 1][3] + A[i - 1][4]) / 2:  # тренд нисходящий
-            if(max_a - min_a == 0): d = 5
+            if max_a - min_a == 0: d = 5
             else: d = int(1 + (max_b - min_b) / (max_a - min_a))
             d *= cf
             BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
             BUY.append([A[i][1], A[i][0], d, 0])  # цена покупки, дата покупки, объем, процент прибыли/убыли
             up -= A[i][1] * d
             budget += A[i][1] * d
-            purch += d
-        elif (A[i - 5][3] + A[i - 5][4]) / 2 < (A[i - 1][3] + A[i - 1][4]) / 2:  # тренд восходящий
+        else:  # тренд восходящий
             value_to_sell = 0
             for j in BUY:
                 if j[3] > 0:
                     up += A[i][1] * j[2]
                     value_to_sell += j[2]
-                    soll += j[2]
                     BUY.remove(j)
             if value_to_sell != 0:
                 SELL.append([A[i][1], A[i][0], value_to_sell])  # цена продажи, дата продажи, объем
@@ -47,31 +42,9 @@ def check_buy(A, i, BUY_FOR_PROJECT=[], BUY=[], SELL=[], up=0, budget=0):
         d *= cf
         BUY.append([A[i][1], A[i][0], d, 0])  # молот
         BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
-        purch += d
         up -= A[i][1] * d
         budget += A[i][1] * d
-    return [up, budget, purch, soll]
-
-
-def absorption(cmp):
-    st = "../csv_files/" + cmp + ".csv"
-    file = open(st, encoding="utf8", mode='r')
-    file1 = open(st, encoding="utf8", mode='r')
-    l = len(file1.readlines())
-    file1.close()
-    reader = csv.reader(file, delimiter=",", quotechar='"')
-    next(reader)
-    A = []
-    for i, line in enumerate(reader):
-        if i >= l - 10:
-            A.append(line)  # распаковка
-            for j in range(len(A[-1])):
-                if j != 0:  # перевод во float цен
-                    A[-1][j] = float(A[-1][j])
-    a = check_buy(A, len(A) - 1)
-    purch = a[2]
-    soll = a[3]
-    return [purch, soll]
+    return up, budget
 
 
 def forecast(sze, cmp):
@@ -94,24 +67,16 @@ def forecast(sze, cmp):
     SELL = []  # то же, что BUY_FOR_PROJECT только с продажами в формате: цена, дата, объем
     up = 0
     budget = 0
-    for i in range(2, len(A)):
-        a = check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up, budget)
-        up = a[0]
-        budget = a[1]
-        purch = a[2]
-        soll = a[3]
-        # print(purch, soll)
-        # print(A[i])
-        # print(A[i][3])
-        # print("SELL")
-        # print(*SELL, sep='\n')
-        # print("BUY")
-        # print(*BUY, sep='\n')
-        # print()
+    for i in range(6, len(A)):
+        # print(BUY)
+        up, budget = check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up, budget)
+        # print(BUY)
     up1 = up
     for it in BUY:
         up1 += it[0] * it[2]
     # print("BUY_FOR_PROJECT")
+    # print(*SELL, sep='\n')
+    # print('!', sep ='\n ')
     # print(*BUY_FOR_PROJECT, sep='\n')
     print("доход:", up)  # вывод дохода
     print("теоритический доход:", up1)  # вывод дохода
