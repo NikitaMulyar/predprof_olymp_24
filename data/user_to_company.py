@@ -7,7 +7,7 @@ class UserCompany(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     user_id = sqlalchemy.Column(sqlalchemy.Integer)
-    company_id = sqlalchemy.Column(sqlalchemy.Integer)
+    company = sqlalchemy.Column(sqlalchemy.String)
 
     def __repr__(self):
-        return f'<UC> {self.id} {self.user_id} {self.company_id}'
+        return f'<UC> {self.id} {self.user_id} {self.company}'

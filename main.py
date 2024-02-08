@@ -9,6 +9,7 @@ from data import db_session, csv_api
 from data.users import User
 from data.companies import Company
 from data.lands import Land
+from data.user_to_company import UserCompany
 from form.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
@@ -28,6 +29,7 @@ def index():
     data = []
     for el in db_sess.query(Company).all():
         data.append([el.short_name, el.full_name, el.land.name])
+    db_sess.close()
     return render_template('index0.html', massiv=data)
 
 
@@ -35,6 +37,7 @@ def index():
 def all_companies(region):
     db_sess = db_session.create_session()
     data0 = db_sess.query(Company).join(Land).filter(Land.name == region).all()
+    db_sess.close()
     if not data0:
         return abort(500)
     data = []
@@ -59,12 +62,29 @@ def sub():
     return render_template('sub.html')
 
 
+@app.route('/add_company/<company>/<int:user_id>', methods=['POST'])
+def reqister(company, user_id):
+    db_sess = db_session.create_session()
+    check_user = db_sess.query(User).filter(User.id == user_id).first()
+    if not check_user:
+        return render_template('company_added.html', text='Такого юзера нет.', res=-1)
+    check_company = db_sess.query(Company).filter(Company.short_name == company).first()
+    if not check_company:
+        return render_template('company_added.html', text='Такой компании нет.', res=-1)
+    relation = UserCompany(user_id=user_id, company=company)
+    db_sess.add(relation)
+    db_sess.commit()
+    db_sess.close()
+    return render_template('company_added.html', text='Компания добавлена успешно!', res=0)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
+        db_sess.close()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -90,6 +110,7 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
+        db_sess.close()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
@@ -97,7 +118,9 @@ def reqister():
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
-    return db_sess.query(User).get(user_id)
+    q = db_sess.query(User).get(user_id)
+    db_sess.close()
+    return q
 
 
 @app.route('/logout')
@@ -129,6 +152,7 @@ def company_page(name, period, total):
         total = 30
     db_sess = db_session.create_session()
     comp = db_sess.query(Company).filter(Company.short_name == name).first()
+    db_sess.close()
     if comp:
         if comp.land.name == 'RUS':
             get_company_info.get_rus_company_info(comp.short_name, period, total)
