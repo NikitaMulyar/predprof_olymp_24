@@ -7,7 +7,6 @@ import yfinance as yf
 
 
 def get_rus_company_info(company, period, total):
-    print(company)
     minutes = 0
     if period == 'MIN':
         minutes = total

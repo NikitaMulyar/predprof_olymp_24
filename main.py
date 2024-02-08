@@ -122,7 +122,11 @@ def company_page(name, period, total):
             period = request.form['period'][0]
         if request.form['total'] != '':
             total = int(request.form['total'])
+            if total < 30:
+                total = 30
         return redirect(f'/company_page/{name}/{period}/{total}')
+    if total < 30:
+        total = 30
     db_sess = db_session.create_session()
     comp = db_sess.query(Company).filter(Company.short_name == name).first()
     if comp:

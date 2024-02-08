@@ -27,6 +27,7 @@ def global_init(db_file):
 
     SqlAlchemyBase.metadata.create_all(engine)
 
+
 def create_session() -> Session:
     global __factory
     return __factory()
