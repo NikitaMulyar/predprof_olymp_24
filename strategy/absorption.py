@@ -6,7 +6,7 @@ import random
 def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
     cf = 1
     for j in BUY:  # для каждой купленной акции определяем, какой процент прибыли/убыли она несет к утру сегодняшнего дня
-        j[3] = A[i][1] / j[0] * 100 - 100
+        j[3] = j[0] / A[i][1] * 100 - 100
     for j in BUY:
         if j[3] > 7 or j[3] < -5:
             SELL.append([A[i][1], A[i][0], j[2]])

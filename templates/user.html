@@ -3,28 +3,31 @@
 
   {% block content%}
     <main style="display: flex; color:#e5e8eb">
-        
-        <ul class="nav flex-column" style="margin-top: 100px; width: fit-content; height: 100%; position: fixed">
-            <li class="nav-item">
-              <a class="nav-link" href="#user-info">Информация о пользователе</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#watching">Отслеживаемое</a>
-            </li>
-        </ul>
-        <div style="margin-top: 100px; margin-left: 22%; display: block;">
-            <div id="user-info">
+
+
+<div id="userr" >
+    <div class="row mt-4" style="padding-left: 5%; padding-right: 35%;">
+      <div class="col-6">
+        <div class="list-group" id="list-tab" role="tablist" >
+          <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#user-info" role="tab" aria-controls="list-home">Информация о пользователе</a>
+          <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#tracking" role="tab" aria-controls="list-profile">Отслеживаемое</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="list-home-list" style=" min-width: fit-content; margin-left: auto; width: max-content">
+              <div>
                 <h5>Информация о пользователе:</h5>
                 <p><b>id: </b> {{current_user.id}}</p>
                 <p><b>Name: </b> {{ current_user.name }}</p>
                 <p><b>Surname: </b>{{ current_user.surname }}</p>
                 <p><b>Email: </b>{{ current_user.email }}</p>
-
             </div>
-            
-            <div id="watching" style="margin-top: 85px;">
-                <h5>Отслеживаемое</h5>
-                <div class="container" style="padding-top: 10px; color: black" id="companies">
+          </div>
+
+          <div class="tab-pane fade" id="tracking" role="tabpanel" aria-labelledby="list-profile-list">
+              <h5>Отслеживаемое</h5>
+                <div class="container"  id="companies">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 <!--                      {%for i in range(4)%}-->
                       <div class="col" style=" min-width: fit-content">
@@ -44,7 +47,11 @@
 <!--                      {%endfor%}-->
                     </div>
                    </div>
-            </div>
+
+          </div>
         </div>
+      </div>
+    </div>
+</div>
     </main>
 {%endblock%}
