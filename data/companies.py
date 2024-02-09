@@ -13,7 +13,7 @@ class Company(SqlAlchemyBase):
     pic_url = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     land_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("lands.id"))
-    land = orm.relationship("Land")
+    land = orm.relationship("Land", lazy='subquery')
 
     def __repr__(self):
         return (f'<Company> {self.id} {self.land} {self.short_name} {self.full_name} '

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main role="main" style="width: 25%; margin: auto; padding-top: 10%;  color: #f0f8ff">
+{% if res == -1 %}
+    {% set plane = "color: #ff7575" %}
+{% else %}
+    {% set plane = "color: #acff75" %}
+{% endif %}
+    <h1 style="{{ plane }}">{{ text }}</h1>
+</main>
+{% endblock %}

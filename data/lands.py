@@ -8,7 +8,6 @@ class Land(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    company = orm.relationship("Company")
 
     def __repr__(self):
         return f'<Land> {self.id} {self.name}'

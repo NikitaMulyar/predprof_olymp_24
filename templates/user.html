@@ -29,22 +29,22 @@
               <h5>Отслеживаемое</h5>
                 <div class="container"  id="companies">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-<!--                      {%for i in range(4)%}-->
-                      <div class="col" style=" min-width: fit-content">
-                        <div class="card shadow-sm" style="padding-top: 5px;">
-                            <img src="" alt=":(">
-                          <div class="card-body" style=" background: #0f3163; color:#f0f8ff; margin-top: 5px">
-                            <p class="card-text">Яндекс</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary"  onClick="location.href='/company_page/YNDX/D/100'">Подробнее</button>
-                                  <button type="button" class="btn btn-sm btn-outline-secondary"  onClick="" disabled>Перестать отслеживать</button>
+                      {%for elem in all_companies %}
+                          <div class="col" style=" min-width: fit-content">
+                              <div class="card shadow-sm" style="padding-top: 5px;">
+                                <img src="{{ elem.pic_url }}" alt=":(" style="max-height: 150px; max-width: 350px;">
+                                <div class="card-body" style=" background: #0f3163; color:#f0f8ff; margin-top: 5px">
+                                <p class="card-text">{{ elem.full_name }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"  onClick="location.href='/company_page/{{ elem.short_name }}/D/1000'">Подробнее</button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary"  onClick="location.href='/remove/{{ elem.short_name }}/{{ current_user.id }}'">Перестать отслеживать</button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-<!--                      {%endfor%}-->
+                      {%endfor%}
                     </div>
                    </div>
 

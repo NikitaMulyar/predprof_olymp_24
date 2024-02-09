@@ -34,7 +34,6 @@ def get_rus_company_info(company, period, total):
 
 
 def get_usa_company_info(company, period, total):
-    print(company)
     tick = yf.Ticker(company)
     """import pprint
     pprint.pprint(tick.get_info()['longBusinessSummary'])

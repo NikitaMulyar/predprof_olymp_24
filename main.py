@@ -54,7 +54,12 @@ def all_companies(region):
 
 @app.route('/user')
 def user():
-    return render_template('user.html')
+    db_sess = db_session.create_session()
+    related_companies = db_sess.query(UserCompany).filter(UserCompany.user_id == current_user.id).all()
+    all_companies = []
+    for elem in related_companies:
+        all_companies.append(db_sess.query(Company).filter(Company.id == elem.company_id).first())
+    return render_template('user.html', all_companies=all_companies)
 
 
 @app.route('/sub')
@@ -62,8 +67,12 @@ def sub():
     return render_template('sub.html')
 
 
-@app.route('/add_company/<company>/<int:user_id>', methods=['POST'])
-def add_company_func(company, user_id):
+@app.route('/<method>/<company>/<int:user_id>')
+def add_company_func(method, company, user_id):
+    if method not in ['add', 'remove']:
+        return render_template('company_added.html', text='Страница не найдена.', res=-1)
+    if not current_user.is_authenticated or current_user.id != user_id:
+        return render_template('company_added.html', text='Некорректный id.', res=-1)
     db_sess = db_session.create_session()
     check_user = db_sess.query(User).filter(User.id == user_id).first()
     if not check_user:
@@ -71,11 +80,20 @@ def add_company_func(company, user_id):
     check_company = db_sess.query(Company).filter(Company.short_name == company).first()
     if not check_company:
         return render_template('company_added.html', text='Такой компании нет.', res=-1)
-    relation = UserCompany(user_id=user_id, company=company)
-    db_sess.add(relation)
+    check_exists_relation = db_sess.query(UserCompany).filter((UserCompany.company_id == check_company.id) &
+                                                              (UserCompany.user_id == user_id)).first()
+    if method == 'add':
+        if check_exists_relation:
+                return render_template('company_added.html', text='Данная компания уже есть в избранном.', res=-1)
+        relation = UserCompany(user_id=user_id, company_id=check_company.id)
+        db_sess.add(relation)
+        db_sess.commit()
+        db_sess.close()
+        return render_template('company_added.html', text='Компания добавлена успешно!', res=0)
+    db_sess.delete(check_exists_relation)
     db_sess.commit()
     db_sess.close()
-    return render_template('company_added.html', text='Компания добавлена успешно!', res=0)
+    return render_template('company_added.html', text='Компания успешно удалена!', res=0)
 
 
 @app.route('/login', methods=['GET', 'POST'])
