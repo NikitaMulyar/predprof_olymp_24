@@ -7,15 +7,15 @@
 
 <div id="site0" >
     <div class="row mt-4" style="padding-left: 5%; padding-right: 35%;">
-      <div class="col-4">
-        <div class="list-group" id="list-tab" role="tablist" style=" width: max-content">
+      <div class="col-6">
+        <div class="list-group" id="list-tab" role="tablist" >
           <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#user-info" role="tab" aria-controls="list-home">Информация о пользователе</a>
           <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#tracking" role="tab" aria-controls="list-profile">Отслеживаемое</a>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-6">
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="list-home-list" style=" min-width: fit-content; margin-left: auto">
+          <div class="tab-pane fade show active" id="user-info" role="tabpanel" aria-labelledby="list-home-list" style=" min-width: fit-content; margin-left: auto; width: max-content">
               <div>
                 <h5>Информация о пользователе:</h5>
                 <p><b>id: </b> {{current_user.id}}</p>
