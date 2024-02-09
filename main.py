@@ -63,7 +63,7 @@ def sub():
 
 
 @app.route('/add_company/<company>/<int:user_id>', methods=['POST'])
-def reqister(company, user_id):
+def add_company_func(company, user_id):
     db_sess = db_session.create_session()
     check_user = db_sess.query(User).filter(User.id == user_id).first()
     if not check_user:
