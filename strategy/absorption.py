@@ -5,10 +5,10 @@ import random
 def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
     cf = 1
     for j in BUY:  # для каждой купленной акции определяем, какой процент прибыли/убыли она несет к утру сегодняшнего дня
-        j[3] = A[i][1] / j[0] * 100 - 100
+        j[3] = j[0] / A[i][1] * 100 - 100
     for j in BUY:
         if j[3] > 7 or j[3] < -5:
-            SELL.append([A[i][1], A[i][0], j[2]])
+            SELL.append([A[i][1], A[i][0], j[2], 1])
             up += A[i][1] * j[2]
             BUY.remove(j)
     min_a = min(A[i - 2][1], A[i - 2][2])
@@ -23,7 +23,7 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
             if max_a - min_a == 0: d = 5
             else: d = int(1 + (max_b - min_b) / (max_a - min_a))
             d *= cf
-            BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
+            BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0, 2])
             BUY.append([A[i][1], A[i][0], d, 0])  # цена покупки, дата покупки, объем, процент прибыли/убыли
             up -= A[i][1] * d
             budget += A[i][1] * d
@@ -35,13 +35,13 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
                     value_to_sell += j[2]
                     BUY.remove(j)
             if value_to_sell != 0:
-                SELL.append([A[i][1], A[i][0], value_to_sell])  # цена продажи, дата продажи, объем
+                SELL.append([A[i][1], A[i][0], value_to_sell, 3])  # цена продажи, дата продажи, объем
     elif (i > 5) and (abs(A[i - 1][1] - A[i - 1][2]) * 10 < min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) and (A[i - 5][2] > (A[i - 1][1] + A[i - 1][2]) / 2):
         if abs(A[i - 1][1] - A[i - 1][2]) == 0: d = 5
         else: d = round((min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) / (abs(A[i - 1][1] - A[i - 1][2])))
         d *= cf
         BUY.append([A[i][1], A[i][0], d, 0])  # молот
-        BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
+        BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0, 4])
         up -= A[i][1] * d
         budget += A[i][1] * d
     return up, budget
@@ -74,10 +74,9 @@ def forecast(sze, cmp):
     up1 = up
     for it in BUY:
         up1 += it[0] * it[2]
-    # print("BUY_FOR_PROJECT")
-    # print(*SELL, sep='\n')
-    # print('!', sep ='\n ')
-    # print(*BUY_FOR_PROJECT, sep='\n')
+    print(*SELL, sep='\n')
+    print()
+    print(*BUY_FOR_PROJECT, sep='\n')
     print("доход:", up)  # вывод дохода
     print("теоритический доход:", up1)  # вывод дохода
     print("доход в процентах: ", round(100 * (up1/budget), 3), "%", sep='')
@@ -86,7 +85,7 @@ def forecast(sze, cmp):
 
 
 if __name__ == '__main__':
-    cmp = "AAPL"
+    cmp = "LKOH"
     print("компания:", cmp)
     forecast(100, cmp)
     # print(*absorption(cmp))
