@@ -28,23 +28,23 @@
           <span style="color:white; width: 200pt">{{ description }}</span>
 
         </div>
-                 <div class="dropdown text-end" style="color: white;">
-            <div class="d-block link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px; border: solid #b3b3b3; border-radius: 10px; width: fit-content">
+          <div class="dropdown text-end" style="color: white;">
+            <div class="d-block link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 2px 5px; border: solid #b3b3b3; border-radius: 10px; width: fit-content;">
               <a href="#" class="text-decoration-none" >
-                <span style="color: coral;">period</span>
+                <span style="color: snow;">Настроить период</span>
               </a>
             </div>
 
-          <div class="dropdown-menu text-small">
-            <form action="" method="post" style="padding: 5pt">
+          <div class="dropdown-menu text-small" style="color: black !important">
+            <form action="" method="post" style="padding: 5pt;">
 <!--                <input type="text" name="period" maxlength="1" >-->
                 <select class="form-control" name="period">
-                    <option>Выберете период</option>
-                    <option>D (day)</option>
-                    <option>W (week)</option>
+                    <option style="color: black !important">Выберете период</option>
+                    <option style="color: black !important">D (day)</option>
+                    <option style="color: black !important">W (week)</option>
                 </select>
-                <input type="number" name="total" placeholder="Сколько дней/недель?">
-                <input type="submit">
+                <input type="number" name="total" placeholder="Сколько дней/недель?" style="color: black !important">
+                <input type="submit" style="color: black !important">
             </form>
           </div>
         </div>
@@ -54,9 +54,9 @@
       <div class="my-4 w-100" id="myChart"></div>
       <br>
 
-      <div class="strategy_result" style="padding-left: 5%; color: snow;">
-          <h3>При действиях, изображенных на графике, получим, что:</h3>
-          <ul class="list-group" style="max-width: 600px; font-size: 22px;">
+      <div class="strategy_result" style="color: snow;">
+          <h3 style="text-align: center;">При действиях, изображенных на графике, получим, что:</h3>
+          <ul class="list-group" style="max-width: 600px; font-size: 22px; margin: auto;">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Бюджет
                 <span class="badge bg-primary rounded-pill">{{ res["budget"] }}</span>
@@ -77,8 +77,8 @@
       </div>
       <br>
 
-      <h2 style="color: #e5e8eb">Данные по графику</h2>
-      <div class="table-responsive small" style="padding: 15px; width: fit-content;">
+      <h2 style="color: #e5e8eb; margin: auto; text-align: center; ">Данные по графику</h2>
+      <div class="table-responsive small" style="margin: auto; text-align: center; width: fit-content; font-size: 1.2em">
         <table class="table table-striped table-sm" >
           <thead >
             <tr>
