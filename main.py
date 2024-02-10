@@ -21,6 +21,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+host = '127.0.0.1'
+port = '5000'
 
 
 @app.route('/')
@@ -212,4 +214,4 @@ def company_page(name, period, total):
 if __name__ == '__main__':
     db_session.global_init("db/database.db")
     app.register_blueprint(csv_api.blueprint)
-    app.run(port=5000, host='127.0.0.1')
+    app.run(port=int(port), host=host)

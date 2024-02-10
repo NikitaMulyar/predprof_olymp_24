@@ -45,7 +45,7 @@ for(var i = 0; i < edata.length; i++) {
         var plot = chart.plot(0);
         plot.yGrid(true).xGrid(true).yMinorGrid(true).xMinorGrid(true);
         var series = plot.marker(mapping2);
-        series.name("Продажа");
+        series.name("Покупка");
         series.fill("#2fa946");
         series.type("triangle-up");
         series.stroke("black");
@@ -60,7 +60,7 @@ for(var i = 0; i < edata.length; i++) {
         var plot = chart.plot(0);
         plot.yGrid(true).xGrid(true).yMinorGrid(true).xMinorGrid(true);
         var series = plot.marker(mapping3);
-        series.name("Покупка");
+        series.name("Продажа");
         series.fill("#ec4139");
         series.type("triangle-down");
         series.stroke("black");
