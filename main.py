@@ -23,6 +23,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 host = '127.0.0.1'
 port = '5000'
+path = f'http://{host}:{port}'
 
 
 @app.route('/')
