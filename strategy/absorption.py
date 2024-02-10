@@ -9,7 +9,7 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
         j[3] = j[0] / A[i][1] * 100 - 100
     for j in BUY:
         if j[3] > 7 or j[3] < -5:
-            SELL.append([A[i][1], A[i][0], j[2]])
+            SELL.append([A[i][1], A[i][0], j[2], 1])
             up += A[i][1] * j[2]
             BUY.remove(j)
     min_a = min(A[i - 2][1], A[i - 2][2])
@@ -24,7 +24,7 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
             if max_a - min_a == 0: d = 5
             else: d = int(1 + (max_b - min_b) / (max_a - min_a))
             d *= cf
-            BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
+            BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0, 2])
             BUY.append([A[i][1], A[i][0], d, 0])  # цена покупки, дата покупки, объем, процент прибыли/убыли
             up -= A[i][1] * d
             budget += A[i][1] * d
@@ -36,13 +36,13 @@ def check_buy(A, i, BUY_FOR_PROJECT, BUY, SELL, up=0, budget=0):
                     value_to_sell += j[2]
                     BUY.remove(j)
             if value_to_sell != 0:
-                SELL.append([A[i][1], A[i][0], value_to_sell])  # цена продажи, дата продажи, объем
+                SELL.append([A[i][1], A[i][0], value_to_sell, 3])  # цена продажи, дата продажи, объем
     elif (i > 5) and (abs(A[i - 1][1] - A[i - 1][2]) * 10 < min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) and (A[i - 5][2] > (A[i - 1][1] + A[i - 1][2]) / 2):
         if abs(A[i - 1][1] - A[i - 1][2]) == 0: d = 5
         else: d = round((min(A[i - 1][1], A[i - 1][2]) - A[i - 1][4]) / (abs(A[i - 1][1] - A[i - 1][2])))
         d *= cf
         BUY.append([A[i][1], A[i][0], d, 0])  # молот
-        BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0])
+        BUY_FOR_PROJECT.append([A[i][1], A[i][0], d, 0, 4])
         up -= A[i][1] * d
         budget += A[i][1] * d
     return up, budget
