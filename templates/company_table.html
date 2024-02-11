@@ -12,20 +12,20 @@
       const buy_data =  JSON.parse('{{ buy_data | tojson }}');
       const sell_data = JSON.parse('{{ sell_data | tojson }}');
       const edata =  JSON.parse('{{ edata | tojson }}');
-      const dataset_url = '{{ path__ }}/api/{{ company }}';
+      const dataset_url = 'http://127.0.0.1:5000/api/{{ company }}';
       const company_name = '{{ full_company_name }}';
     </script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
-<div class="container-fluid">
+<div class="container-fluid" style="padding-top: 100pt;">
   <div class="row">
     <main>
-      <img src="{{ pic_url }}">
+      <img src="{{ pic_url }}" style="height: 150px; background: snow;  margin-left: 20pt">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div >
-           <h1 class="h2" >{{ full_company_name }} ({{ company }})</h1>
-          <span >{{ description }}</span>
+        <div style=" margin-left: 20pt; max-width: 80%">
+           <h1 class="h2" style="color: #e5e8eb; padding-top: 15pt">{{ full_company_name }} ({{ company }})</h1>
+          <span style="color:white; width: 200pt">{{ description }}</span>
 
         </div>
           <div class="dropdown text-end" style="color: white;">

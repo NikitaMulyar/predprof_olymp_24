@@ -93,8 +93,8 @@ def add_company_func(method, company, user_id):
         db_sess.commit()
         db_sess.close()
         return render_template('company_added.html', text='Компания добавлена успешно!', res=0)
-    if not check_company:
-        return render_template('company_added.html', text='Такой компании нет.', res=-1)
+    if not check_exists_relation:
+        return render_template('company_added.html', text='Вы не отслеживаете данную компанию.', res=-1)
     db_sess.delete(check_exists_relation)
     db_sess.commit()
     db_sess.close()
