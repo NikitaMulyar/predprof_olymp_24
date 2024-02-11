@@ -212,7 +212,7 @@ def company_page(name, period, total):
         return render_template('company_table.html', pic_url=comp.pic_url,
                                company=comp.short_name, description=comp.description,
                                full_company_name=comp.full_name, buy_data=buy_data, table_data=table_data[::-1],
-                               sell_data=sell_data, edata=edata, res=res)
+                               sell_data=sell_data, edata=edata, res=res, path__=path)
     return abort(404)
 
 

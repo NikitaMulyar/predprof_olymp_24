@@ -12,7 +12,7 @@
       const buy_data =  JSON.parse('{{ buy_data | tojson }}');
       const sell_data = JSON.parse('{{ sell_data | tojson }}');
       const edata =  JSON.parse('{{ edata | tojson }}');
-      const dataset_url = 'http://127.0.0.1:5000/api/{{ company }}';
+      const dataset_url = '{{ path__ }}/api/{{ company }}';
       const company_name = '{{ full_company_name }}';
     </script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
